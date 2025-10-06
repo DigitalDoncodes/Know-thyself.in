@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Reupload Received - Know-Thyself</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      max-width: 650px;
+      background: #fff;
+      margin: 40px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #2563eb, #10b981);
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+    .content {
+      padding: 25px;
+    }
+    h2 {
+      color: #2563eb;
+    }
+    .btn {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #10b981;
+    }
+    .footer {
+      background: #f8f9fa;
+      text-align: center;
+      padding: 15px;
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <h1>Know-Thyself</h1>
+      <p>Your Reupload Has Been Received 📂</p>
+    </div>
+
+    <div class="content">
+      <h2>Hello {{ student_name }},</h2>
+      <p>We’ve successfully received your reuploaded documents for the job position <strong>{{ job_title }}</strong>.</p>
+      <p>Our review team and assigned teacher have been notified. You’ll receive another update once your submission is re-evaluated.</p>
+
+      <p style="margin-top: 25px;">
+        <a href="{{ portal_link }}" class="btn">Go to Dashboard</a>
+      </p>
+
+      <p style="margin-top: 20px; color: gray; font-size: 14px;">
+        Thank you for promptly submitting your corrections. Your attention to detail helps maintain high standards of the program.
+      </p>
+    </div>
+
+    <div class="footer">
+      © {{ current_year }} Know-Thyself | All Rights Reserved.
+    </div>
+  </div>
+</body>
+</html>

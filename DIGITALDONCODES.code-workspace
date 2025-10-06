@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../Know-Thyself/__pycache__"
+		},
+		{
+			"path": "../Know-Thyself/static"
+		},
+		{
+			"path": "../Know-Thyself/templates"
+		},
+		{
+			"path": "../Know-Thyself/uploads"
+		}
+	]
+}

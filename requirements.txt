@@ -1,0 +1,25 @@
+# requirements.txt
+Flask==3.0.0
+Flask-Login==0.6.3
+Flask-Mail==0.9.1
+Flask-PyMongo==2.3.0
+Flask-WTF==1.2.1
+gunicorn==21.2.0
+python-dotenv==1.0.0
+pymongo==4.6.0
+WTForms==3.1.1
+Werkzeug==3.0.1
+Jinja2==3.1.6
+itsdangerous==2.2.0
+MarkupSafe==3.0.2
+email-validator==2.0.0
+openpyxl==3.1.5
+pandas==2.3.1
+xlsxwriter==3.2.5
+python-dateutil==2.9.0.post0
+bcrypt==4.0.1
+passlib==1.7.4
+python-magic==0.4.27
+filetype==1.2.0
+APScheduler==3.10.4
+pytz==2025.1
