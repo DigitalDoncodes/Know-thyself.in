@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Application Alert</title>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body style="font-family: 'Segoe UI', sans-serif; background-color: #f9fafb; margin: 0; padding: 20px;">
+
+  <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; animation: fadeIn 1s ease;">
+    
+    <!-- Header -->
+    <div style="background: linear-gradient(-45deg, #dc2626, #f97316, #ef4444, #facc15);
+                background-size: 400% 400%;
+                animation: gradientShift 6s ease infinite;
+                padding: 25px; text-align: center; color: white;">
+      <h2 style="margin: 0; font-weight: 700;">📥 New Application Received</h2>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 25px;">
+      <p><strong>Applicant Name:</strong> {{ app.name }}</p>
+      <p><strong>Email:</strong> {{ app.email }}</p>
+      <p><strong>Job Title:</strong> {{ app.job_title }}</p>
+      <p><strong>Submitted On:</strong> {{ app.submitted_at }}</p>
+
+      <div style="margin: 20px 0; background: #fef2f2; border-left: 4px solid #ef4444; padding: 12px; border-radius: 8px;">
+        <p style="margin: 0; color: #b91c1c;">📎 Resume and Photo are attached to this email.</p>
+      </div>
+
+      <p style="font-size: 13px; color: #6b7280;">Please log in to the <strong>Know-Thyself Teacher Dashboard</strong> to review this application.</p>
+    </div>
+
+    <!-- Footer -->
+    <div style="background: #f3f4f6; text-align: center; padding: 15px; font-size: 13px; color: #6b7280;">
+      Automated alert from <strong>Know-Thyself System</strong>.
+    </div>
+  </div>
+
+</body>
+</html>

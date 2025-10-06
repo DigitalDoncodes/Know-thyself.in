@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Re-Upload Notification</title>
+</head>
+<body style="font-family: 'Inter', Arial, sans-serif; background: #0f172a; color: #e2e8f0; padding: 40px;">
+  <div style="max-width: 600px; margin: auto; background: #1e293b; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.5);">
+    
+    <div style="background: linear-gradient(90deg, #2563eb, #10b981); padding: 20px; text-align: center;">
+      <h2 style="color: white; margin: 0;">📥 Student Re-Upload Alert</h2>
+    </div>
+
+    <div style="padding: 30px;">
+      <p>Dear Teacher,</p>
+      <p>The student <strong style="color: #60a5fa;">{{ student_name }}</strong> has re-uploaded their resume and photo for the application:</p>
+
+      <p><strong>{{ job_title }}</strong></p>
+
+      <p>Please review their updated submission on the portal at your convenience.</p>
+      <p>Regards,<br><strong>Know-Thyself Portal</strong></p>
+    </div>
+  </div>
+</body>
+</html>

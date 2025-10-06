@@ -1,0 +1,14 @@
+Know-Thyself — Application Status Update
+
+Hi {{ student.name if student.name is defined else "Candidate" }},
+
+Your application for the role "{{ job.title }}" has a new status: {{ status }}.
+
+{% if feedback %}
+Feedback:
+{{ feedback }}
+{% endif %}
+
+View your application: https://know-thyself.in/dashboard
+
+This is an automated message from Know-Thyself. Do not reply.

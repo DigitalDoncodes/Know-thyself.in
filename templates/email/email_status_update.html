@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Know-Thyself Application Update</title>
+</head>
+<body style="font-family: 'Inter', Arial, sans-serif; background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8fafc; padding: 40px; margin: 0;">
+  <div style="max-width: 600px; margin: auto; background: #1e293b; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.5);">
+    
+    <!-- Header -->
+    <div style="background: linear-gradient(90deg, #2563eb, #10b981); padding: 20px; text-align: center;">
+      <img src="https://res.cloudinary.com/ddqeqxamf/image/upload/v1754506544/psychology_logo_dqa0hs.jpg" alt="Know-Thyself Logo" style="height: 60px; border-radius: 8px;">
+    </div>
+
+    <!-- Content -->
+    <div style="padding: 30px;">
+      <h2 style="color: #10b981; text-align: center;">Application {{ status|capitalize }}</h2>
+      <p style="font-size: 15px; line-height: 1.6; color: #e2e8f0;">
+        Hi <strong>{{ name }}</strong>,
+      </p>
+
+      <p style="font-size: 15px; color: #e2e8f0;">
+        Your application for <strong style="color: #60a5fa;">{{ job_title }}</strong> has been 
+        <strong style="color: #10b981;">{{ status|capitalize }}</strong> by your teacher.
+      </p>
+
+      {% if status == "approved" %}
+        <p style="background: rgba(34,197,94,0.2); padding: 10px 15px; border-radius: 8px;">
+          🎉 Congratulations! Your dedication and effort truly stood out. You’ve successfully cleared this stage.
+        </p>
+
+      {% elif status == "rejected" %}
+        <p style="background: rgba(239,68,68,0.2); padding: 10px 15px; border-radius: 8px;">
+          😔 Unfortunately, your application was not selected this time. Don’t lose heart — your growth journey continues with Know-Thyself.
+        </p>
+
+      {% elif status == "corrections_needed" %}
+        <p style="background: rgba(245,158,11,0.2); padding: 10px 15px; border-radius: 8px;">
+          📝 Your teacher has requested some corrections in your submission. Please review your resume and photo, then re-upload using the button below.
+        </p>
+
+        <div style="text-align: center; margin-top: 25px;">
+          <a href="{{ upload_link }}" 
+             style="background: linear-gradient(45deg, #2563eb, #10b981); 
+                    color: #fff; 
+                    padding: 12px 25px; 
+                    border-radius: 10px; 
+                    text-decoration: none; 
+                    font-weight: 600; 
+                    box-shadow: 0 4px 15px rgba(37,99,235,0.3);">
+            Re-upload Files
+          </a>
+        </div>
+      {% endif %}
+
+      <p style="margin-top: 25px; font-size: 14px; color: #cbd5e1;">
+        Thank you for your continued efforts. Stay confident and keep growing 🌱
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; padding: 20px; background: #0f172a;">
+      <p style="font-size: 13px; color: #94a3b8;">
+        © {{ now().year }} Know-Thyself | Empowering Minds & Growth 🌿<br>
+        <a href="mailto:psychologyresumemail@gmail.com" style="color: #60a5fa; text-decoration: none;">psychologyresumemail@gmail.com</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

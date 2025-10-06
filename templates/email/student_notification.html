@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Confirmation | Know-Thyself</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7faff;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+  .header {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    color: white;
+    text-align: center;
+    padding: 25px;
+    position: relative;
+  }
+  .header img {
+    width: 85px;
+    height: 85px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    background-color: white;
+    padding: 5px;
+  }
+  .header h1 {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 700;
+  }
+  .content {
+    padding: 25px;
+    line-height: 1.6;
+  }
+  .content h2 {
+    color: #2575fc;
+    font-size: 20px;
+    margin-top: 0;
+  }
+  .details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  .details-table th, .details-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  .details-table th {
+    width: 35%;
+    color: #555;
+  }
+  .button {
+    display: inline-block;
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .button:hover {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+  }
+  .footer {
+    background: #f3f6fa;
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <!-- ✅ Replace this URL with your Cloudinary-hosted logo -->
+      <img src="https://res.cloudinary.com/dvv0zgszr/image/upload/v1728032450/know_thyself_logo.png" alt="Know-Thyself Logo">
+      <h1>✅ Application Received</h1>
+    </div>
+
+    <div class="content">
+      <h2>Hello {{ student_name }},</h2>
+      <p>
+        Thank you for submitting your application for
+        <strong>{{ job_title }}</strong>. We’ve received your documents successfully.
+      </p>
+
+      <table class="details-table">
+        <tr>
+          <th>Application ID</th>
+          <td>{{ app_id }}</td>
+        </tr>
+        <tr>
+          <th>Job Title</th>
+          <td>{{ job_title }}</td>
+        </tr>
+        <tr>
+          <th>Submitted On</th>
+          <td>{{ submitted_on }}</td>
+        </tr>
+      </table>
+
+      <p>
+        Our review team will assess your application soon.
+        You’ll be notified once a decision has been made.
+      </p>
+
+      <div style="text-align:center; margin-top:25px;">
+        <a href="http://127.0.0.1:10000/login" class="button">View Your Dashboard</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>With regards,<br><strong>The Know-Thyself Team</strong></p>
+    </div>
+  </div>
+</body>
+</html>

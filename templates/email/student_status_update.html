@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Application Status Update</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+      background: #f6f9fc;
+      padding: 0;
+      margin: 0;
+    }
+    .email-container {
+      max-width: 600px;
+      background: #ffffff;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #0078ff, #6c63ff);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .header img {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+    .content {
+      padding: 25px;
+      color: #333;
+    }
+    .content h2 {
+      color: #0078ff;
+      margin-bottom: 10px;
+    }
+    .footer {
+      background: #f1f3f6;
+      padding: 15px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+    }
+    .status-box {
+      background: #f7faff;
+      border-left: 4px solid #0078ff;
+      padding: 10px 15px;
+      margin-top: 15px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <img src="https://res.cloudinary.com/dmrl2otuk/image/upload/v1728140077/knowthyself_logo.png" alt="Know-Thyself Logo">
+      <h1>Application Update</h1>
+    </div>
+
+    <div class="content">
+      <p>Dear <strong>{{ student_name }}</strong>,</p>
+      <p>We wanted to update you on your recent application for the position of:</p>
+      <h2>{{ job_title }}</h2>
+
+      <div class="status-box">
+        Current Status: {{ status }}
+      </div>
+
+      {% if feedback %}
+      <p><strong>Teacher’s Feedback:</strong><br>{{ feedback }}</p>
+      {% endif %}
+
+      <p>We appreciate your effort and interest. Please check your dashboard for any next steps.</p>
+      <p>Best regards,<br><strong>Know-Thyself Team</strong></p>
+    </div>
+
+    <div class="footer">
+      <p>&copy; {{ now().year }} Know-Thyself | Empowering Student Growth</p>
+    </div>
+  </div>
+</body>
+</html>
