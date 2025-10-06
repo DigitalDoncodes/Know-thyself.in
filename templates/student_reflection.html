@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Student Reflections{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 py-12 sm:py-16 min-h-screen">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+        Student Self-Assessment Reflections
+      </h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+        Review student reflections on their skills, confidence, and goals.
+      </p>
+    </div>
+
+    {% if reflections %}
+      <div class="grid grid-cols-1 gap-6">
+        {% for reflection in reflections %}
+          <div class="bg-white rounded-2xl shadow-xl p-6 transition-transform transform hover:scale-105 duration-200">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-indigo-200 pb-4 mb-4">
+              <h3 class="text-xl font-bold text-gray-900">
+                {{ reflection.student_name }}
+                <span class="text-sm font-medium text-gray-500 ml-2">({{ reflection.student_id }})</span>
+              </h3>
+              <span class="text-sm text-gray-500 mt-2 sm:mt-0">
+                <i class="fas fa-calendar-alt mr-1"></i> {{ reflection.submission_date.strftime('%Y-%m-%d %H:%M') }}
+              </span>
+            </div>
+            
+            <div class="space-y-4 text-gray-700">
+              <p><strong>Q1:</strong> {{ reflection.q1_answer }}</p>
+              <p><strong>Q2:</strong> {{ reflection.q2_answer }}</p>
+              <p><strong>Q3:</strong> {{ reflection.q3_answer }}</p>
+              <p><strong>Q4:</strong> {{ reflection.q4_answer }}</p>
+              <p><strong>Q5:</strong> {{ reflection.q5_answer }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="mt-6 p-6 text-center text-gray-600 bg-gray-50 rounded-xl">
+        <p class="text-lg">No student reflections have been submitted yet.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

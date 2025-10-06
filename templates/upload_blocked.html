@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Upload Blocked{% endblock %}
+
+{% block content %}
+<div class="container my-5 text-center">
+  <h2 class="text-danger">Upload Blocked</h2>
+  <p class="lead">Your application for <strong>{{ app.job_title or "the job" }}</strong> has expired or been rejected.</p>
+  <p class="text-muted">Uploads are only allowed within 48 hours of applying.</p>
+  <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

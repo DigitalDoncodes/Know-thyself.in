@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Application Submitted</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; color: #333;">
+    <div style="max-width: 600px; margin: auto; background: #f8f9fa; padding: 20px; border-radius: 10px;">
+      <h2 style="color: #007bff;">✅ Application Submitted Successfully</h2>
+      <p>Dear {{ student_name }},</p>
+      <p>Your application for <strong>{{ job_title }}</strong> has been successfully submitted on Know-Thyself.</p>
+      <p>You can log in anytime to view the status or update your information.</p>
+      <p>
+        <a href="{{ portal_link }}" style="color: white; background: #007bff; padding: 10px 15px; text-decoration: none; border-radius: 5px;">
+          Go to Dashboard
+        </a>
+      </p>
+      <p style="font-size: 12px; color: gray; margin-top: 20px;">
+        © {{ current_year }} Know-Thyself. All Rights Reserved.
+      </p>
+    </div>
+  </body>
+</html>

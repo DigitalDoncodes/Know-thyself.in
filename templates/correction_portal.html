@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Correction Portal{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-danger" style="border-radius: 15px;">
+                <div class="card-header bg-danger text-white text-center py-4" style="border-radius: 15px 15px 0 0;">
+                    <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                    <h2 class="h4 mb-0">Action Required: Submit Corrections</h2>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    
+                    <h3 class="card-title text-danger mb-4">{{ app.job.title }}</h3>
+
+                    {% if app.teacher_feedback %}
+                        <div class="alert alert-warning border-warning" role="alert">
+                            <h5 class="alert-heading"><i class="fas fa-comment-dots me-2"></i>Teacher Feedback</h5>
+                            <p class="mb-0">{{ app.teacher_feedback }}</p>
+                        </div>
+                    {% endif %}
+                    
+                    <p class="lead mt-4">
+                        Please re-upload your resume and photo below, ensuring you have addressed the feedback provided.
+                        This will automatically update your application status to **Submitted** for re-review.
+                    </p>
+
+                    <form action="{{ url_for('upload', app_id=app._id) }}"
+                          method="POST"
+                          enctype="multipart/form-data"
+                          class="d-grid gap-3 mt-4">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">1. New Résumé File (PDF/DOCX):</label>
+                            <input type="file" name="resume" accept=".pdf,.doc,.docx" required class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">2. New Photo File (JPG/PNG):</label>
+                            <input type="file" name="photo" accept=".jpg,.jpeg,.png" required class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-danger btn-lg mt-3">
+                            <i class="fas fa-cloud-upload-alt me-2"></i> Submit Corrected Application
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

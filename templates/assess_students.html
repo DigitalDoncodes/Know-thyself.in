@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Assess Students | Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="text-center fw-bold mb-4 text-primary">
+    <i class="fas fa-user-check"></i> Assess Student Applications
+  </h2>
+  {% if applications %}
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body">
+      <table class="table table-hover align-middle">
+        <thead class="table-dark">
+          <tr class="text-center">
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Job Title</th>
+            <th>Status</th>
+            <th>Resume</th>
+            <th>Upload Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for app in applications %}
+          <tr class="text-center">
+            <td class="fw-semibold">{{ app.student_name }}</td>
+            <td class="text-muted">{{ app.student_email }}</td>
+            <td>{{ app.job_title }}</td>
+            <td>
+              <span class="badge 
+                {% if app.status == 'submitted' %} bg-success 
+                {% elif app.status == 'upload_required' %} bg-warning text-dark 
+                {% elif app.status == 'approved' %} bg-primary 
+                {% elif app.status == 'rejected' %} bg-danger 
+                {% else %} bg-secondary {% endif %}">
+                {{ app.status|replace("_", " ")|capitalize }}
+              </span>
+            </td>
+            <td>
+              {% if app.resume_filename %}
+                <a href="{{ url_for('view_file', filename=app.resume_filename)}}" 
+                   class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-file-pdf"></i> View
+                </a>
+              {% else %}
+                <span class="text-muted">Not uploaded</span>
+              {% endif %}
+            </td>
+            <td>
+              {{ app.upload_time.strftime('%d %b %Y, %I:%M %p') if app.upload_time else '-' }}
+            </td>
+            <td>
+              <form method="POST" action="{{ url_for('assess_students') }}" class="d-flex flex-column gap-2">
+                <input type="hidden" name="app_id" value="{{ app._id }}">
+                <select name="status" class="form-select form-select-sm" required>
+                  <option value="approved" {% if app.status == 'approved' %}selected{% endif %}>Approve</option>
+                  <option value="rejected" {% if app.status == 'rejected' %}selected{% endif %}>Reject</option>
+                  <option value="corrections_needed" {% if app.status == 'corrections_needed' %}selected{% endif %}>Request Corrections</option>
+                </select>
+                <textarea name="feedback" class="form-control form-control-sm" rows="2" placeholder="Enter feedback (optional)...">{{ app.teacher_feedback or '' }}</textarea>
+                <button type="submit" class="btn btn-success btn-sm w-100">
+                  <i class="fas fa-paper-plane"></i> Update
+                </button>
+              </form>
+              <form method="POST" action="{{ url_for('clear_application', app_id=app._id) }}" 
+                    onsubmit="return confirm('Are you sure you want to clear this application?');">
+                <button type="submit" class="btn btn-danger btn-sm w-100 mt-2">
+                  <i class="fas fa-trash"></i> Clear
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="text-center mt-5">
+    <img src="https://cdn-icons-png.flaticon.com/512/7486/7486759.png" width="120" alt="No Applications">
+    <p class="text-muted mt-3">No student applications found yet.</p>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .card {
+    background: linear-gradient(135deg, #f0f4f8, #e8f0fe);
+  }
+  table thead th {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+  }
+  table tbody tr:hover {
+    background-color: #f9f9f9;
+    transition: 0.3s;
+  }
+  textarea.form-control {
+    resize: none;
+  }
+</style>
+{% endblock %}

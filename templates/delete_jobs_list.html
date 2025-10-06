@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Delete Jobs{% endblock %}
+{% block content %}
+<h2>Delete Jobs</h2>
+
+<table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th>Job Title</th>
+      <th>Description</th>
+      <th>Vacancies</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for job in jobs %}
+    <tr>
+      <td>{{ job.title }}</td>
+      <td>{{ job.description[:50] }}{% if job.description|length > 50 %}...{% endif %}</td>
+      <td>{{ job.vacancies }}</td>
+      <td>
+        <form action="{{ url_for('delete_job', job_id=job._id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this job?');">
+          <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="4">No jobs found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card-dark p-5" style="max-width: 600px; width: 100%;">
+    
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-white">Edit Your Profile</h2>
+      <p class="text-muted">Update your personal details and profile picture.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+      {{ form.hidden_tag() }}
+
+      <!-- Name -->
+      <div class="mb-3">
+        {{ form.name.label(class="form-label text-light") }}
+        {{ form.name(class="form-control form-control-lg bg-dark text-white border-secondary", placeholder="Enter your full name") }}
+        {% for error in form.name.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        {{ form.email.label(class="form-label text-light") }}
+        {{ form.email(class="form-control form-control-lg bg-dark text-white border-secondary", placeholder="Enter your email") }}
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-3">
+        {{ form.phone.label(class="form-label text-light") }}
+        {{ form.phone(class="form-control form-control-lg bg-dark text-white border-secondary", placeholder="Enter your phone number") }}
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        {{ form.password.label(class="form-label text-light") }}
+        {{ form.password(class="form-control form-control-lg bg-dark text-white border-secondary", placeholder="New password (leave blank to keep current)") }}
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-3">
+        {{ form.confirm.label(class="form-label text-light") }}
+        {{ form.confirm(class="form-control form-control-lg bg-dark text-white border-secondary", placeholder="Confirm password") }}
+      </div>
+
+      <!-- Photo -->
+      <div class="mb-4">
+        {{ form.photo.label(class="form-label text-light") }}
+        {{ form.photo(class="form-control bg-dark text-light border-secondary") }}
+      </div>
+
+      {% if user.photo_filename %}
+      <div class="text-center mb-4">
+        <img src="{{ url_for('static', filename='uploads/' ~ user.photo_filename) }}" 
+             alt="Profile Picture"
+             class="rounded-circle border border-secondary"
+             style="width: 100px; height: 100px; object-fit: cover;">
+        <p class="text-muted small mt-2">Current Profile Picture</p>
+      </div>
+      {% endif %}
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-gradient px-4 py-2">💾 Save Changes</button>
+        <a href="{{ url_for('student_dashboard') }}" class="btn btn-outline-light px-4 py-2">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .card-dark {
+    border-radius: 16px;
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    color: #f1f5f9;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  }
+  .form-control:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 0.25rem rgba(56, 189, 248, 0.25);
+  }
+  .btn-gradient {
+    background: linear-gradient(45deg, #2563eb, #10b981);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-gradient:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(16,185,129,0.45);
+  }
+</style>
+{% endblock %}

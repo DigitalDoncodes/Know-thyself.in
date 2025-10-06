@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Dementia Inclusive Societies Poster{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 min-h-screen py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Towards Dementia Inclusive Societies</h1>
+            <p class="mt-2 text-md text-gray-600">Event Poster</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="relative w-full" style="padding-top: 141.42%;"> <iframe src="https://res.cloudinary.com/dmtsr85ly/image/upload/v1756908186/A3_KCLAS_Towards_Dementia_Inclusive_Societies_Poster_2_y1o4uq.pdf" 
+                        class="absolute top-0 left-0 w-full h-full"
+                        style="border: none;">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="{{ url_for('resources') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200">
+                &larr; Back to Resources
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

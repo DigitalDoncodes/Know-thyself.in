@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Edit Teacher Profile{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 flex items-center justify-center min-h-screen p-4 sm:p-6">
+  <div class="w-full max-w-2xl bg-white p-8 rounded-xl shadow-2xl border border-gray-200">
+    
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Edit Your Profile</h2>
+      <p class="mt-2 text-sm text-gray-500">Update your personal details and password.</p>
+    </div>
+    
+    <form method="post" novalidate class="space-y-6">
+      {{ form.hidden_tag() }}
+
+      <div>
+        {{ form.name.label(class="block text-sm font-medium text-gray-700") }}
+        <div class="mt-1">
+          {{ form.name(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3 transition duration-150", placeholder="Enter your full name") }}
+        </div>
+        {% if form.name.errors %}
+          <div class="mt-2 text-red-600 text-xs font-semibold">
+            {{ form.name.errors[0] }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div>
+        {{ form.email.label(class="block text-sm font-medium text-gray-700") }}
+        <div class="mt-1">
+          {{ form.email(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3 transition duration-150", placeholder="Enter your email address") }}
+        </div>
+        {% if form.email.errors %}
+          <div class="mt-2 text-red-600 text-xs font-semibold">
+            {{ form.email.errors[0] }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div>
+        {{ form.phone.label(class="block text-sm font-medium text-gray-700") }}
+        <div class="mt-1">
+          {{ form.phone(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3 transition duration-150", placeholder="Enter your phone number") }}
+        </div>
+        {% if form.phone.errors %}
+          <div class="mt-2 text-red-600 text-xs font-semibold">
+            {{ form.phone.errors[0] }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div>
+        {{ form.password.label(class="block text-sm font-medium text-gray-700") }}
+        <div class="mt-1">
+          {{ form.password(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3 transition duration-150", autocomplete="new-password", placeholder="Enter new password if changing") }}
+        </div>
+        <p class="mt-2 text-xs text-gray-500">Leave this blank if you don't want to change your password.</p>
+        {% if form.password.errors %}
+          <div class="mt-2 text-red-600 text-xs font-semibold">
+            {{ form.password.errors[0] }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div>
+        {{ form.confirm.label(class="block text-sm font-medium text-gray-700") }}
+        <div class="mt-1">
+          {{ form.confirm(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3 transition duration-150", placeholder="Confirm new password") }}
+        </div>
+        {% if form.confirm.errors %}
+          <div class="mt-2 text-red-600 text-xs font-semibold">
+            {{ form.confirm.errors[0] }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 mt-6 justify-end">
+        <a href="{{ url_for('teacher_dashboard') }}" class="w-full sm:w-auto px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out text-center">
+          Cancel
+        </a>
+        <button type="submit" class="w-full sm:w-auto px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+          Save Changes
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

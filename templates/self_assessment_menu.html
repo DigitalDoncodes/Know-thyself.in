@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Self Assessment{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-light mb-4">🧠 Self Assessment Center</h2>
+  <div class="row">
+    {% for cat in categories %}
+    <div class="col-md-6 mb-4">
+      <div class="card bg-dark text-light shadow-sm">
+        <div class="card-body">
+          <h5>{{ cat.title }}</h5>
+          <p>{{ cat.description }}</p>
+          <a href="{{ url_for('start_self_assessment', category_id=cat.id) }}" class="btn btn-outline-info btn-sm">Start</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

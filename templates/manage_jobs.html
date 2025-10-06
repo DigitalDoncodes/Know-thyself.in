@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Manage Jobs | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-primary">
+      <i class="fas fa-briefcase"></i> Manage Job Listings
+    </h2>
+    <a href="{{ url_for('add_job') }}" class="btn btn-outline-primary">
+      <i class="fas fa-plus-circle"></i> Add New Job
+    </a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  {% if jobs %}
+  <div class="table-responsive shadow-sm rounded-4">
+    <table class="table table-hover align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Vacancies</th>
+          <th>Deadline (IST)</th>
+          <th>Applicants</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in jobs %}
+        <tr class="text-center">
+          <td class="fw-semibold">{{ job.title }}</td>
+          <td class="text-muted">{{ job.description[:60] }}...</td>
+          <td>{{ job.vacancies }}</td>
+          <td>
+            {% if job.deadline %}
+              {{ (job.deadline + timedelta(hours=5, minutes=30)).strftime("%d %b %Y, %I:%M %p") }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td>{{ job.applicant_count or 0 }}</td>
+          <td>
+            <a href="{{ url_for('edit_job', job_id=job._id|string) }}" 
+               class="btn btn-sm btn-outline-warning me-2">
+              <i class="fas fa-edit"></i> Edit
+            </a>
+            <a href="{{ url_for('delete_job', job_id=job._id|string) }}" 
+               class="btn btn-sm btn-outline-danger me-2"
+               onclick="return confirm('Are you sure you want to delete this job? This action cannot be undone.')">
+              <i class="fas fa-trash"></i> Delete
+            </a>
+            <a href="{{ url_for('assess_students', job_id=job._id|string) }}" 
+               class="btn btn-sm btn-outline-primary">
+              <i class="fas fa-user-check"></i> Assess
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="text-center mt-5">
+    <img src="https://cdn-icons-png.flaticon.com/512/4076/4076500.png" width="100" alt="No Jobs">
+    <p class="text-muted mt-3">No job postings found. Create one to get started!</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Self-Assessment - Part 2{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 flex items-center justify-center min-h-screen p-4 sm:p-6">
+  <div class="w-full max-w-2xl bg-white p-8 rounded-2xl shadow-2xl border border-gray-200">
+    
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+        Self-Assessment - Part 2/3
+      </h2>
+      <p class="mt-2 text-sm text-gray-500">
+        Please rate your confidence and mood on a scale of 1-10.
+      </p>
+    </div>
+
+    <form method="POST" action="{{ url_for('self_assessment_step', step=2) }}" class="space-y-6">
+      {{ form.csrf_token }}
+      
+      <div>
+        <label for="q3" class="block text-sm font-medium text-gray-700">{{ form.q3.label }}</label>
+        <div class="mt-1">
+          {{ form.q3(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3 transition duration-150", placeholder="e.g., 8") }}
+        </div>
+      </div>
+      
+      <div>
+        <label for="q4" class="block text-sm font-medium text-gray-700">{{ form.q4.label }}</label>
+        <div class="mt-1">
+          {{ form.q4(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3 transition duration-150", placeholder="e.g., 8") }}
+        </div>
+      </div>
+      
+      <div class="mt-6">
+        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150">
+          Next
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

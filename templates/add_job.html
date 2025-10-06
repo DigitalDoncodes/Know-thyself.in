@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Add New Job | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 p-4 mx-auto" style="max-width: 700px;">
+    <div class="card-body">
+      <h2 class="fw-bold text-primary text-center mb-4">🧑‍🏫 Create a New Job Posting</h2>
+
+      <form method="POST" onsubmit="return validateForm()" novalidate>
+        <!-- Job Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label fw-semibold">Job Title</label>
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            id="title"
+            name="title"
+            placeholder="Enter job title"
+            required
+          />
+          <div class="invalid-feedback">Please enter a job title.</div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label fw-semibold">Job Description</label>
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Write a detailed description of the job"
+            required
+          ></textarea>
+          <div class="invalid-feedback">Please provide a description.</div>
+        </div>
+
+        <!-- Specifications -->
+        <div class="mb-3">
+          <label for="specifications" class="form-label fw-semibold">Job Specifications</label>
+          <textarea
+            class="form-control"
+            id="specifications"
+            name="specifications"
+            rows="3"
+            placeholder="Required skills, experience, etc."
+            required
+          ></textarea>
+          <div class="invalid-feedback">Please provide job specifications.</div>
+        </div>
+
+        <!-- Vacancies -->
+        <div class="mb-3">
+          <label for="vacancies" class="form-label fw-semibold">Number of Vacancies</label>
+          <input
+            type="number"
+            class="form-control"
+            id="vacancies"
+            name="vacancies"
+            min="1"
+            value="1"
+            required
+          />
+          <div class="invalid-feedback">Please specify at least one vacancy.</div>
+        </div>
+
+        <!-- Deadline -->
+        <div class="mb-3">
+          <label for="deadline" class="form-label fw-semibold">Application Deadline (IST)</label>
+          <input
+            type="datetime-local"
+            class="form-control"
+            id="deadline"
+            name="deadline"
+            required
+          />
+          <div class="invalid-feedback">Please choose a valid deadline.</div>
+        </div>
+
+        <!-- Submit -->
+        <div class="d-flex justify-content-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg px-4">
+            <i class="fas fa-plus-circle me-2"></i> Create Job
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Frontend validation
+  function validateForm() {
+    let form = document.querySelector("form");
+    if (!form.checkValidity()) {
+      form.classList.add("was-validated");
+      return false;
+    }
+    return true;
+  }
+
+  // Set default IST time (current time + 1 hour)
+  document.addEventListener("DOMContentLoaded", function () {
+    const deadlineInput = document.getElementById("deadline");
+    const now = new Date();
+    now.setHours(now.getHours() + 1);
+    const localISOTime = now.toISOString().slice(0, 16);
+    deadlineInput.value = localISOTime;
+  });
+</script>
+{% endblock %}

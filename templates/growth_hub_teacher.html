@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Growth Hub - Teacher{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-light mb-4">📚 Growth Hub - Teacher Overview</h2>
+  <div class="list-group">
+    {% for activity in activities %}
+    <div class="list-group-item bg-dark text-light">
+      <h5>{{ activity.title }}</h5>
+      <p>{{ activity.description }}</p>
+      <small>Created at: {{ activity.created_at or "N/A" }}</small>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

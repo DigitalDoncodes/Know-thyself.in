@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome – Know-Thyself</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%);
+            --teal-accent: #2dd4bf;
+            --purple-accent: #a855f7;
+            --coral-accent: #ff6b6b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            overflow-x: hidden;
+            background-color: black;
+            color: white;
+        }
+        
+        .startpage-bg {
+            background: black;
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        @keyframes backgroundAnimate {
+            0%   { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+.text-link {
+    color: white; /* Sets the text color to white */
+    font-size: 1.5rem; /* Adjust font size as needed */
+    font-weight: bold; /* Makes the text bold */
+    text-decoration: none; /* Removes the underline from the link */
+    
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    z-index: 1000;
+}
+
+        .text-gradient {
+             background: linear-gradient(90deg, #a770ef, #f6d365);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient2 {
+              background: linear-gradient(90deg, #f7971e, #ffd200, #43cea2);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite alternate;
+        }
+        
+        
+        .quote-container {
+            background: black;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: none;
+            max-width: 850px;
+            margin: 0 auto;
+            transform: scale(0.9);
+            opacity: 0;
+            animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        .word-container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5rem;
+            white-space: nowrap;
+        }
+        
+        .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            padding: 0 5px;
+        }
+        
+        .author {
+            opacity: 0;
+            transform: translateY(20px);
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 500;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 3.5s;
+            text-align: right;
+        }
+        
+        .main-content {
+            max-width: 960px;
+            width: 90%;
+            margin: 0 auto;
+            display: none;
+        }
+
+        #introBox {
+            margin-bottom: 5rem;
+        }
+
+        .slide-up-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        #introBox h2 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        
+        #introBox p.fst-italic {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        #introBox p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        #introBox ul {
+            text-align: center;
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0 auto;
+        }
+
+        #introBox ul li {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        #riseBox {
+            margin-top: 3rem;
+            margin-bottom: 5rem;
+        }
+        
+        #riseBox > div {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            word-spacing: 8rem;
+        }
+        
+        #loginBox {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    z-index: 1000;
+    font-weight: bold;
+    opacity: 0; /* Add this to ensure it's hidden initially */
+    transform: translateY(50px); /* Add this to set the starting position */
+}
+        
+        .btn-gradient {
+    background: white; /* Button background color */
+    color: #8B0000; /* Dark red text color */
+    border-radius: 2em;
+    border: none;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    padding: 12px 35px;
+    font-size: 1.2rem;
+}
+
+        .btn-gradient:hover {
+            background: #f0f0f0;
+            color: black;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes slideInUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .transition-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            z-index: 1000;
+        }
+        .go-to-jobs-text {
+    color: #8B0000; /* Deep red color */
+    font-size: 1.5rem; /* Adjust font size as needed */
+    font-weight: bold; /* Makes the text bold */
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    z-index: 1000;
+}
+    </style>
+</head>
+<body>
+    
+    <div class="startpage-bg">
+        <section id="quoteSection">
+            <div class="quote-container">
+                <div class="word-container">
+                    <span class="word">Knowing</span>
+                    <span class="word">yourself</span>
+                    <span class="word">is</span>
+                    <span class="word">the</span>
+                    <span class="word">beginning</span>
+                    <span class="word">of</span>
+                    <span class="word">all</span>
+                    <span class="word">wisdom</span>
+                </div>
+                <p class="author">Aristotle</p>
+            </div>
+        </section>
+
+        <section id="main-content" class="main-content">
+            <div id="introBox">
+                <h2 class="slide-up-item"><span class="text-gradient2">Know-Thyself</span></h2>
+                <p class="fst-italic slide-up-item">
+                    <strong>R</strong>eal-world <strong>I</strong>ntegration for <strong>S</strong>tudent <strong>E</strong>mpowerment
+                </p>
+                <p class="slide-up-item">
+                    <strong>Know-Thyself</strong> is an experiential learning platform designed to prepare students for the world of work—long before they graduate. Here, students explore realistic job postings, craft and upload their resumes, and experience the process of applying to roles relevant to their field of study.
+                </p>
+                <ul style="list-style-type:none; padding-left:0;">
+                    <li class="slide-up-item"><strong> Reflect </strong>– Clarity on your career interests and job market expectations</li>
+                    <li class="slide-up-item"><strong> Identify</strong> – Hands-on practice in writing professional resumes and cover letters</li>
+                    <li class="slide-up-item"><strong> Seek</strong> – Interview readiness aligned with real job descriptions</li>
+                    <li class="slide-up-item"><strong> Evolve</strong> – Opportunities tailored to psychology students</li>
+                </ul>
+            </div>
+            
+            <div id="riseBox">
+                <div class="slide-up-item" style="font-size: 3rem; font-weight: bold; text-align: center; margin-bottom: 1.5rem;">
+                    <span style="color: #6a11cb;">R</span><span style="font-size: 1.5rem; vertical-align: top; color: #333;">eflect</span>
+                    <span style="color: #2575fc; margin-left: 1rem;">I</span><span style="font-size: 1.5rem; vertical-align: top; color: #333;">dentify</span>
+                    <span style="color: #ff6b6b; margin-left: 1rem;">S</span><span style="font-size: 1.5rem; vertical-align: top; color: #333;">eek</span>
+                    <span style="color: #ffa502; margin-left: 1rem;">E</span><span style="font-size: 1.5rem; vertical-align: top; color: #333;">volve</span>
+                </div>
+            </div>
+
+          <div id="loginBox">
+    <a href="jobs" class="text-link">Continue</a>
+</div>
+</div>
+</div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+   
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const words = document.querySelectorAll('.word');
+        const author = document.querySelector('.author');
+        
+        words.forEach((word, index) => {
+            setTimeout(() => {
+                word.style.animation = `fadeInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
+                word.style.opacity = "1";
+                word.style.transform = "translateY(0)";
+            }, index * 400);
+        });
+        
+        setTimeout(() => {
+            author.style.opacity = "1";
+            author.style.transform = "translateY(0)";
+        }, words.length * 400 + 300);
+        
+        setTimeout(() => {
+            const quoteSection = document.getElementById("quoteSection");
+            quoteSection.style.opacity = "0";
+            quoteSection.style.transform = "scale(0.95)";
+            quoteSection.style.transition = "all 0.8s ease";
+            
+            setTimeout(() => {
+                quoteSection.style.display = "none";
+                const mainContent = document.getElementById("main-content");
+                mainContent.style.display = "block";
+                
+                // Get all content elements EXCEPT the login button
+                const elementsToAnimate = document.querySelectorAll('#introBox h2, #introBox p.fst-italic, #introBox p, #introBox ul li, #riseBox > div');
+                let delay = 0;
+
+                elementsToAnimate.forEach((element) => {
+                    setTimeout(() => {
+                        element.style.animation = `slideInUp 2s ease forwards`;
+                    }, delay);
+                    delay += 500;
+                });
+                
+                // This setTimeout ensures the button animates after all other content
+                setTimeout(() => {
+                    const loginBox = document.getElementById("loginBox");
+                    loginBox.style.animation = `slideInUp 2s ease forwards`;
+                }, delay + 500); // Add an extra 500ms for a clear final pop-up
+                
+            }, 800);
+        }, words.length * 400 + 5000);
+    });
+</script>
+</body>
+</html>

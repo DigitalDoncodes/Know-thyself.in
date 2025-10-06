@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% block title %}Teacher Dashboard | Know-Thyself{% endblock %}
+
+{% block head %}
+<style>
+  body {
+    background: linear-gradient(135deg, #f3f4f7, #dbeafe);
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+  }
+
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    animation: fadeIn 0.8s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dashboard-title {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 40px;
+  }
+
+  .function-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+  }
+
+  .function-box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 3px solid transparent;
+    border-image-slice: 1;
+  }
+
+  .function-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Gradient Borders */
+  .box-1 { border-image-source: linear-gradient(45deg, #6a11cb, #2575fc); }
+  .box-2 { border-image-source: linear-gradient(45deg, #43cea2, #185a9d); }
+  .box-3 { border-image-source: linear-gradient(45deg, #ff512f, #dd2476); }
+  .box-4 { border-image-source: linear-gradient(45deg, #00c6ff, #0072ff); }
+  .box-5 { border-image-source: linear-gradient(45deg, #f7971e, #ffd200); }
+  .box-6 { border-image-source: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+  .box-7 { border-image-source: linear-gradient(45deg, #c471f5, #fa71cd); }
+
+  .function-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 10px;
+  }
+
+  .function-desc {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 15px;
+  }
+
+  .function-btn {
+    background: linear-gradient(45deg, #2563eb, #4f46e5);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-block;
+  }
+
+  .function-btn:hover {
+    transform: scale(1.07);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+    background: linear-gradient(45deg, #4f46e5, #2563eb);
+  }
+
+  .logout-section {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .logout-btn {
+    color: #ef4444;
+    border: 2px solid #ef4444;
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .logout-btn:hover {
+    background: #ef4444;
+    color: white;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <h2 class="dashboard-title">🎓 Teacher Dashboard - Quick Actions</h2>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Function Boxes Grid -->
+  <div class="function-grid">
+
+    <!-- Box 1: Create Job -->
+    <div class="function-box box-1">
+      <div class="function-title">Create New Job</div>
+      <p class="function-desc">Post a new opportunity for students to apply.</p>
+      <a href="{{ url_for('add_job') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Box 2: Manage Jobs -->
+    <div class="function-box box-2">
+      <div class="function-title">Manage Jobs</div>
+      <p class="function-desc">View or edit all the jobs you have posted.</p>
+      <a href="{{ url_for('manage_jobs') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Box 3: Assess Students -->
+    <div class="function-box box-3">
+      <div class="function-title">Assess Students</div>
+      <p class="function-desc">Evaluate student applications and give feedback.</p>
+      <a href="{{ url_for('assess_students') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Box 4: Export Data -->
+    <div class="function-box box-4">
+      <div class="function-title">Export Data</div>
+      <p class="function-desc">Download Excel reports for students or assessments.</p>
+      <a href="{{ url_for('export_dashboard_data') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Box 5: Registered Students -->
+    <div class="function-box box-5">
+      <div class="function-title">Registered Students</div>
+      <p class="function-desc">View details of all registered students.</p>
+      <a href="{{ url_for('registered_students') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Box 6: Growth Hub -->
+    <div class="function-box box-6">
+      <div class="function-title">Growth Hub</div>
+      <p class="function-desc">Track and review student growth progress.</p>
+      <a href="{{ url_for('teacher_growth_hub') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Box 7: Self Assessments -->
+<div class="function-box box-7">
+  <div class="function-title">Self Assessment</div>
+  <p class="function-desc">View student self-assessment submissions.</p>
+  <a href="{{ url_for('teacher_self_assessments') }}" class="function-btn">Go</a>
+</div>
+
+  </div>
+
+  <!-- Logout Section -->
+  <div class="logout-section">
+    <a href="{{ url_for('logout') }}" class="logout-btn">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
+</div>
+{% endblock %}

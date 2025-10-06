@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Application Approved - Know-thyself</title>
+</head>
+<body style="background:#f0f4f8; margin:0; padding:0;">
+  <table align="center" width="100%" style="background:#f0f4f8;">
+    <tr>
+      <td align="center">
+        <table width="480" style="background:#fff; border-radius:18px; margin:32px auto; box-shadow:0 4px 24px #667eea15;">
+          <tr>
+            <td style="padding:32px 0 12px 0; text-align:center; background:linear-gradient(90deg,#667eea,#764ba2)">
+              <!-- Increased logo size -->
+              <img src="https://res.cloudinary.com/ddqeqxamf/image/upload/v1754506544/psychology_logo_dqa0hs.jpg" alt="Know-thyself" width="150" height="150" style="border-radius:16px; box-shadow:0 2px 8px #0001;">
+              <div style="font-family:'Segoe UI',Arial,sans-serif; font-weight:bold; font-size:1.6rem; color:#fff; margin-top:12px;">
+                Know-thyself
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:32px 32px 12px 32px; font-family:'Segoe UI',Arial,sans-serif; color:#222;">
+              <h2 style="margin-top:0;">Congratulations {{ student_name }}!</h2>
+              <div style="font-size:1.10rem; line-height:1.6; margin-bottom:22px;">
+                Your application for <strong>{{ job_title }}</strong> has been <span style="color:#37d67a;"><strong>approved</strong></span> by your teacher.<br><br>
+                Please log in to the portal for next steps and further instructions.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:32px;">
+              <a href="{{ portal_link }}" style="background:#ff477e; color:#fff; font-weight:bold; border-radius:30px; font-size:1.12rem; padding: 14px 40px; display:inline-block; text-decoration:none;">
+                Go to Portal
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0 0 24px 0; text-align:center;">
+              <div style="font-size:0.93em; color:#b2becd;">&copy; {{ current_year or 2025 }} Know-thyself</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 py-12 sm:py-16">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-12">
+      <div class="text-center mb-12 sm:mb-16">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          About Know-Thyself
+        </h1>
+        <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+          Connecting students with opportunities, empowering futures.
+        </p>
+      </div>
+
+      <!-- Our Mission -->
+      <div class="mb-12 sm:mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2">Our Mission</h2>
+        <p class="mt-4 text-lg text-gray-600 leading-relaxed">
+          Our mission is to bridge the gap between education and industry by providing a seamless, efficient, and transparent platform for students to find meaningful job opportunities. We empower teachers and placement officers with the tools they need to guide students toward successful careers. It also helps students to experience real-time business scenarios.
+        </p>
+      </div>
+
+      <!-- Our Vision -->
+      <div class="mb-12 sm:mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2">Our Vision</h2>
+        <p class="mt-4 text-lg text-gray-600 leading-relaxed">
+          We envision a world where every student has equal access to career opportunities and the resources to succeed. Know-Thyself aims to be the leading platform for campus recruitment, known for its integrity, innovation, and commitment to student success.
+        </p>
+      </div>
+
+      <!-- Meet the Creator Button that links to a new page -->
+      <div class="text-center my-12">
+        <a href="{{ url_for('creator') }}" class="inline-block px-8 py-3 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
+          Meet the Creator
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

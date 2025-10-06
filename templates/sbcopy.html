@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2 class="mb-3 text-center">Welcome, {{ current_user.name }}!</h2>
+  <p class="lead text-center">View your applications, deadlines, and manage uploads.</p>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Active Applications Table -->
+  <h4 class="mt-4">Your Job Applications</h4>
+  <table class="table table-bordered align-middle text-center">
+    <thead class="table-secondary">
+      <tr>
+        <th>Job Title</th>
+        <th>Status</th>
+        <th>Deadline</th>
+        <th>Upload Resume PDF</th>
+        <th>Feedback</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for app in apps %}
+      <tr>
+        <td>{{ app.job.title }}</td>
+        <td>
+          <span>
+            {{ app.status.replace('_', ' ').title() }}
+            {% if app.status_message %}
+            <br><small class="text-info">{{ app.status_message }}</small>
+            {% endif %}
+          </span>
+        </td>
+        <td>
+          {% if app.resume_deadline %}
+            {{ app.resume_deadline.strftime('%d %b %Y, %H:%M') }} UTC
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {# Only show upload form if status pending_resume and before deadline #}
+          {% if app.status == 'pending_resume' %}
+            {% set deadline_passed = now > app.resume_deadline %}
+            {% if deadline_passed %}
+              <span class="text-danger">Deadline Passed</span>
+            {% elif not app.resume_filename %}
+              <!-- Upload Form with Progress Bar -->
+<form id="upload-form-{{ app._id }}" action="{{ url_for('upload', app_id=app._id) }}" method="POST" enctype="multipart/form-data" onsubmit="return showProgress('{{ app._id }}')">
+                <input class="form-control mb-2" type="file" name="resume" accept=".pdf" required>
+                <button type="submit" class="btn btn-primary btn-sm mb-1">Upload PDF</button>
+                <small class="text-muted d-block">Upload a single PDF containing both your resume and letter of recommendation (max 5MB).</small>
+                <div class="progress mt-2" style="height: 18px; display: none;" id="progress-{{ app._id }}">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="progress-bar-{{ app._id }}">0%</div>
+                </div>
+              </form>
+            {% else %}
+              <span class="text-success">Uploaded</span>
+            {% endif %}
+          {% elif app.status == 'submitted' %}
+            <span class="text-success">Uploaded</span>
+          {% else %}
+            <span class="text-muted">-</span>
+          {% endif %}
+        </td>
+        <td>
+          {{ app.teacher_feedback or '-' }}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" class="text-center text-muted">You have no job applications yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- List open jobs to apply if no active application -->
+  {% if not has_active %}
+  <div class="mt-5">
+    <h5>Open Jobs</h5>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Job Title</th><th>Description</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in jobs %}
+        <tr>
+          <td>{{ job.title }}</td>
+          <td>{{ job.description }}</td>
+          <td>
+            {% if job._id not in applied_ids %}
+            <form method="POST" action="{{ url_for('apply', job_id=job._id) }}" onsubmit="return confirm('Are you sure you want to apply for this job? Once applied, you must upload your PDF within 48 hours.');">
+              <button class="btn btn-success btn-sm">Apply</button>
+            </form>
+            {% else %}
+            <span class="text-muted">Applied</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3" class="text-center">No jobs currently available.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Upload Progress JavaScript (optional, enhances UX) -->
+<script>
+function showProgress(appId) {
+  var form = document.getElementById('upload-form-' + appId);
+  var progress = document.getElementById('progress-' + appId);
+  var progressBar = document.getElementById('progress-bar-' + appId);
+  // Show the progress bar
+  if(progress && progressBar) {
+    progress.style.display = 'block';
+    progressBar.style.width = '0%';
+    progressBar.innerText = '0%';
+  }
+
+  // Listen for the file upload via AJAX to update progress (optional)
+  // For pure HTML forms: fallback, display bar instantly at 100% after submit
+  setTimeout(function() {
+    if(progressBar) {
+      progressBar.style.width = '100%';
+      progressBar.innerText = 'Uploading...';
+    }
+  }, 300);
+
+  // Allow the form to submit as normal
+  return true;
+}
+</script>
+{% endblock %}

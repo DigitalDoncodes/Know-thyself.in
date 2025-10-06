@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body">
+      <h2 class="fw-bold text-primary mb-3">{{ job.title }}</h2>
+
+      <p class="text-muted mb-4">
+        <i class="fas fa-clock"></i> Deadline:
+        <strong>{{ job.deadline_str }}</strong>
+      </p>
+
+      <h5 class="fw-semibold mt-4">Job Description</h5>
+      <p class="text-secondary">{{ job.description or "No description available." }}</p>
+
+      <h5 class="fw-semibold mt-4">Specifications</h5>
+      <p class="text-secondary">{{ job.specifications or "Not specified." }}</p>
+
+      <div class="mt-4">
+        <p><strong>Vacancies:</strong> {{ job.vacancies or 0 }}</p>
+      </div>
+
+      {% if can_apply %}
+      <form method="POST" action="{{ url_for('apply_job', job_id=str(job._id)) }}">
+        <button type="submit" class="btn btn-success px-4">
+          <i class="fas fa-paper-plane"></i> Apply Now
+        </button>
+      </form>
+      {% elif already_applied %}
+      <button class="btn btn-secondary" disabled>
+        <i class="fas fa-check"></i> Already Applied
+      </button>
+      {% else %}
+      <button class="btn btn-danger" disabled>
+        <i class="fas fa-times"></i> Applications Closed
+      </button>
+      {% endif %}
+    </div>
+  </div>
+
+  <a href="{{ url_for('student_dashboard') }}" class="btn btn-outline-primary mt-4">
+    ← Back to Dashboard
+  </a>
+</div>
+{% endblock %}

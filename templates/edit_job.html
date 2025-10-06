@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Edit Job | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-header bg-primary text-white rounded-top-4">
+      <h4 class="fw-bold mb-0"><i class="fas fa-edit"></i> Edit Job Details</h4>
+    </div>
+    <div class="card-body p-4">
+      <form method="POST" action="{{ url_for('edit_job', job_id=job._id|string) }}">
+        
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label fw-semibold">Job Title</label>
+          <input
+            type="text"
+            class="form-control shadow-sm"
+            id="title"
+            name="title"
+            value="{{ job.title }}"
+            placeholder="Enter job title"
+            required
+          >
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label fw-semibold">Description</label>
+          <textarea
+            class="form-control shadow-sm"
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Enter job description"
+            required
+          >{{ job.description }}</textarea>
+        </div>
+
+        <!-- Specifications -->
+        <div class="mb-3">
+          <label for="specifications" class="form-label fw-semibold">Specifications</label>
+          <textarea
+            class="form-control shadow-sm"
+            id="specifications"
+            name="specifications"
+            rows="3"
+            placeholder="Enter any job specifications"
+          >{{ job.specifications }}</textarea>
+        </div>
+
+        <!-- Vacancies -->
+        <div class="mb-3">
+          <label for="vacancies" class="form-label fw-semibold">Number of Vacancies</label>
+          <input
+            type="number"
+            class="form-control shadow-sm"
+            id="vacancies"
+            name="vacancies"
+            min="1"
+            value="{{ job.vacancies }}"
+            required
+          >
+        </div>
+
+        <!-- Deadline -->
+        <div class="mb-3">
+          <label for="deadline" class="form-label fw-semibold">Application Deadline (IST)</label>
+          <input
+            type="datetime-local"
+            class="form-control shadow-sm"
+            id="deadline"
+            name="deadline"
+            value="{{ job.deadline_str }}"
+          >
+          <small class="text-muted">Leave empty to remove deadline.</small>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+          <a href="{{ url_for('manage_jobs') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 0.15rem rgba(37, 99, 235, 0.25);
+  }
+</style>
+{% endblock %}

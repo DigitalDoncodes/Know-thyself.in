@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Clear Applications{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+  <h2>Clear Incomplete Applications</h2>
+  <p>This will permanently delete all pending/incomplete applications.</p>
+  <form method="POST">
+    <button type="submit" class="btn btn-danger">Clear Applications</button>
+    <a href="{{ url_for('teacher_dashboard') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

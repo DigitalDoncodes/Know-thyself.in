@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Teacher - Self Assessment{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-light mb-4">📘 Self Assessment - Teacher Overview</h2>
+  <p class="text-light">Teachers can view overall student insights and patterns.</p>
+  <ul class="list-group">
+    {% for cat in categories %}
+    <li class="list-group-item bg-dark text-light">
+      <strong>{{ cat.title }}</strong> — {{ cat.description }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

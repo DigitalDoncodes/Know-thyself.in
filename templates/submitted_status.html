@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Application Submitted Successfully</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; color: #333;">
+    <div style="max-width: 600px; margin: auto; background: #f8f9fa; padding: 24px; border-radius: 10px; border: 1px solid #ddd;">
+      
+      <h2 style="color: #28a745; text-align: center;">✅ Application Submitted Successfully</h2>
+      
+      <p>Dear <strong>{{ student_name }}</strong>,</p>
+
+      <p>
+        We’re pleased to inform you that your application for the position of 
+        <strong>{{ job_title }}</strong> has been successfully submitted on <b>Know-Thyself</b>.
+      </p>
+
+      <p>
+        Our team will review your submission shortly. You’ll receive email notifications
+        as your application moves through the evaluation process.
+      </p>
+
+      <p style="margin-top: 18px;">
+        You can log in anytime to track your application status or make updates:
+      </p>
+
+      <div style="text-align: center; margin: 24px 0;">
+        <a href="{{ portal_link }}" 
+          style="color: white; background: #007bff; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+          🔗 Go to Dashboard
+        </a>
+      </div>
+
+      <p style="font-size: 14px; color: #555;">
+        Best regards,<br>
+        <strong>The Know-Thyself Team</strong><br>
+        <a href="mailto:psychologyresumemail@gmail.com" style="color: #007bff;">psychologyresumemail@gmail.com</a>
+      </p>
+
+      <hr style="border: none; border-top: 1px solid #ccc; margin-top: 20px;" />
+
+      <p style="font-size: 12px; color: gray; text-align: center;">
+        © {{ current_year }} Know-Thyself. All Rights Reserved.
+      </p>
+    </div>
+  </body>
+</html>

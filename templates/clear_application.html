@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block head %}
+<style>
+  body {
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+  }
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    animation: fadeIn 1s ease-in;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .function-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+  .function-box {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 4px solid transparent;
+    border-image-slice: 1;
+  }
+  .function-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  .box-1 { border-image-source: linear-gradient(45deg, #6a11cb, #2575fc); }
+  .box-2 { border-image-source: linear-gradient(45deg, #43cea2, #185a9d); }
+  .box-3 { border-image-source: linear-gradient(45deg, #fc466b, #3f5efb); }
+  .box-4 { border-image-source: linear-gradient(45deg, #23a6d5, #23d5ab); }
+  .box-5 { border-image-source: linear-gradient(45deg, #c471f5, #fa71cd); }
+  .box-6 { border-image-source: linear-gradient(45deg, #f7971e, #ffd200); }
+  .box-7 { border-image-source: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+  .function-title {
+    font-size: 1.28rem; font-weight: 600; color: #333; margin-bottom: 10px;
+  }
+  .function-desc {
+    font-size: 0.97rem; color: #555; margin-bottom: 15px;
+  }
+  .function-btn {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+    color: white; border: none; padding: 10px 22px; border-radius: 50px;
+    font-weight: bold; cursor: pointer; transition: all 0.3s;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .function-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px 0 rgba(37,117,252,0.15);
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    text-decoration: none;
+    color: #fff;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <h2 class="text-center mb-5" style="font-size: 2.2rem; color: #2575fc;">Teacher Dashboard - Quick Actions</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="function-grid">
+
+    <!-- Create New Job -->
+    <div class="function-box box-1">
+      <div class="function-title">Create New Job</div>
+      <p class="function-desc">Post a new job for students to apply.</p>
+      <a href="{{ url_for('add_job') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Manage Jobs -->
+    <div class="function-box box-2">
+      <div class="function-title">Manage Jobs</div>
+      <p class="function-desc">Edit or view your posted jobs.</p>
+      <a href="{{ url_for('manage_jobs') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Assess Students -->
+    <div class="function-box box-3">
+      <div class="function-title">Assess Students</div>
+      <p class="function-desc">Review and manage individual student applications.</p>
+      <a href="{{ url_for('assess_students') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Export Data -->
+    <div class="function-box box-4">
+      <div class="function-title">Export Data</div>
+      <p class="function-desc">Download Excel reports for registered and assessed students.</p>
+      <a href="{{ url_for('export_dashboard_data') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Registered Students -->
+    <div class="function-box box-6">
+      <div class="function-title">Registered Students</div>
+      <p class="function-desc">See the list of registered and active students.</p>
+      <a href="{{ url_for('registered_students') }}" class="function-btn">Go</a>
+    </div>
+
+    <!-- Growth Hub -->
+    <div class="function-box box-7">
+      <div class="function-title">Growth Hub</div>
+      <p class="function-desc">Track student progress and development activities.</p>
+      <a href="{{ url_for('teacher_growth_hub') }}" class="function-btn">Go</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

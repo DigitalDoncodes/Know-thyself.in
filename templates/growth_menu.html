@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Growth Hub - Choose Theme{% endblock %}
+
+{% block head %}
+<style>
+  .theme-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .theme-card:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+    border-image: linear-gradient(45deg, #7c3aed, #2563eb, #0ea5e9, #f97316) 1;
+    border: 3px solid transparent;
+  }
+  .theme-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">🌱 Growth Hub</h2>
+  <p class="text-center text-muted mb-5">Choose an area you’d like to reflect on today</p>
+
+  <div class="row g-4">
+    {% for key, label in themes.items() %}
+      <div class="col-md-4">
+        <a href="{{ url_for('growth_hub', theme=key) }}" style="text-decoration:none; color:inherit;">
+          <div class="theme-card">
+            <div class="theme-emoji">{{ label.split(" ")[0] }}</div>
+            <h5>{{ label }}</h5>
+            <p class="text-muted">Explore 100 reflective questions about {{ label.split(" ", 1)[1] }}</p>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

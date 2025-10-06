@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Growth Hub{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-light mb-4">🌱 Growth Hub</h2>
+  <div class="row">
+    {% for activity in activities %}
+    <div class="col-md-4 mb-3">
+      <div class="card bg-dark text-light shadow">
+        <div class="card-body">
+          <h5>{{ activity.title }}</h5>
+          <p>{{ activity.description }}</p>
+          <button class="btn btn-outline-success btn-sm">Start</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

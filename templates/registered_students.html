@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Registered Students | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-primary">
+      <i class="fas fa-users"></i> Registered Students
+    </h2>
+    <a href="{{ url_for('export_registered_students') }}" class="btn btn-success">
+      <i class="fas fa-file-excel"></i> Export as Excel
+    </a>
+  </div>
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('export_registered_students') }}" class="btn btn-success me-2">
+    <i class="fas fa-file-excel"></i> Export Registered Students
+  </a>
+  <a href="{{ url_for('export_assessed_students') }}" class="btn btn-primary">
+    <i class="fas fa-file-export"></i> Export Assessed Students
+  </a>
+</div>
+  {% if students %}
+  <div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle text-center">
+          <thead class="table-primary">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Applications</th>
+              <th>Growth Hub Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in students %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td class="fw-semibold text-dark">{{ s.name }}</td>
+              <td>{{ s.email }}</td>
+              <td><span class="badge bg-info">{{ s.app_count or 0 }}</span></td>
+              <td>
+                <div class="progress" style="height: 10px;">
+                  <div class="progress-bar bg-success" style="width: {{ s.growth_progress or 0 }}%;"></div>
+                </div>
+                <small>{{ s.growth_progress or 0 }}%</small>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="text-center mt-5">
+    <img src="https://cdn-icons-png.flaticon.com/512/4076/4076500.png" width="100" alt="No Students">
+    <p class="text-muted mt-3">No registered students found.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

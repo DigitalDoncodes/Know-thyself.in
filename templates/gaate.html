@@ -1,0 +1,48 @@
+<!-- GATE ANIMATION BLOCK (place in your template) -->
+<div id="gate-frame" class="gate-closed" tabindex="0">
+    <div class="gate-left"></div>
+    <div class="gate-right"></div>
+</div>
+
+<style>
+#gate-frame {
+  position: relative;
+  width: 320px;
+  height: 250px;
+  margin: 100px auto 0;
+  perspective: 1200px;
+  cursor: pointer;
+  display: flex;
+}
+.gate-left, .gate-right {
+  background: #444;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0; bottom: 0;
+  transition: transform 1.1s cubic-bezier(.47,1.64,.41,.8);
+  z-index: 2;
+}
+.gate-left { left: 0; border-right: 3px solid #111; }
+.gate-right { right: 0; border-left: 3px solid #111; }
+/* Closed state = both doors in place */
+.gate-closed .gate-left  { transform: rotateY(0); }
+.gate-closed .gate-right { transform: rotateY(0); }
+
+/* Open state = doors swing out */
+.gate-open .gate-left  { transform: rotateY(-120deg); }
+.gate-open .gate-right { transform: rotateY(120deg); }
+</style>
+
+<script>
+const gateFrame = document.getElementById('gate-frame');
+gateFrame.addEventListener('click', function() {
+  // Open the gate
+  this.classList.remove('gate-closed');
+  this.classList.add('gate-open');
+  // After animation, redirect to login — adjust route as needed
+  setTimeout(() => {
+    window.location.href = "{{ url_for('login') }}";
+  }, 1200); // match CSS transition time in ms
+});
+</script>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>New Student Upload Notification</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f7fb; color: #333; padding: 20px;">
+  <div style="max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.1);">
+    <h2 style="color: #0e7490;">📥 New Student Upload Received</h2>
+    <p>Hello <strong>Teacher</strong>,</p>
+    <p>The following student has submitted their application documents:</p>
+    <ul style="line-height: 1.6;">
+      <li><strong>Student Name:</strong> {{ student_name }}</li>
+      <li><strong>Email:</strong> {{ student_email }}</li>
+      <li><strong>Applied Job:</strong> {{ job_title }}</li>
+    </ul>
+
+    <p>✅ Resume and photo are now available in the system.</p>
+
+    <a href="{{ portal_link }}" style="display:inline-block; background:#0e7490; color:white; padding:10px 18px; text-decoration:none; border-radius:5px; margin-top:10px;">Open Dashboard</a>
+
+    <p style="font-size: 12px; color: gray; margin-top: 25px;">
+      © {{ current_year }} Know-Thyself | Confidential Notification
+    </p>
+  </div>
+</body>
+</html>

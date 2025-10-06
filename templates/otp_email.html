@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Your Identity</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f3f6fa; color: #333; padding: 20px;">
+  <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.1);">
+    <h2 style="color: #1e40af;">🔒 OTP Verification</h2>
+    <p>Dear {{ user_name }},</p>
+    <p>We received a request to update your profile on <strong>Know-Thyself</strong>.</p>
+    <p>Your One-Time Password (OTP) is:</p>
+    <div style="background:#1e40af; color:#fff; text-align:center; font-size:28px; font-weight:bold; letter-spacing:4px; padding:12px; border-radius:8px;">
+      {{ otp_code }}
+    </div>
+    <p>This OTP will expire in <strong>5 minutes</strong>.</p>
+    <p>If this wasn’t you, please ignore this email.</p>
+    <p style="font-size: 12px; color: gray; margin-top: 25px;">© {{ current_year }} Know-Thyself | Secure Communication</p>
+  </div>
+</body>
+</html>

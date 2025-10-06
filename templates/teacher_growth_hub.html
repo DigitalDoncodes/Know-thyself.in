@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Teacher Growth Hub | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="fw-bold text-primary mb-4">🌱 Growth Hub - Student Progress</h2>
+
+  {% if growth_data %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Student Name</th>
+          <th>Email</th>
+          <th>Module</th>
+          <th>Progress (%)</th>
+          <th>Last Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for g in growth_data %}
+        <tr class="text-center">
+          <td>{{ g.student_name }}</td>
+          <td>{{ g.student_email }}</td>
+          <td>{{ g.module or 'N/A' }}</td>
+          <td>
+            <div class="progress" style="height: 10px;">
+              <div class="progress-bar bg-success" style="width: {{ g.completion or 0 }}%;"></div>
+            </div>
+            <small>{{ g.completion or 0 }}%</small>
+          </td>
+          <td>{{ g.updated_at.strftime('%d %b %Y, %I:%M %p') if g.updated_at else '-' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-muted text-center mt-4">No growth hub data available yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

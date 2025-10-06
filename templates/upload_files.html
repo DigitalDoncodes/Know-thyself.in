@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Upload Application Files | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body p-5">
+      <h3 class="fw-bold text-primary mb-3">
+        <i class="fas fa-upload"></i> Upload Your Application Files
+      </h3>
+
+      <!-- Application Info -->
+      <p class="text-muted mb-4">
+        You’re submitting files for:
+        <strong class="text-dark">{{ app.job_title }}</strong>
+      </p>
+
+      <!-- Countdown Timer -->
+      <div class="alert alert-light border border-primary rounded-3 shadow-sm">
+        <h6 class="fw-semibold text-secondary mb-2">
+          <i class="fas fa-hourglass-half"></i> ⏰ Time Remaining
+        </h6>
+        <div id="countdown" class="fw-bold fs-5 text-primary">Calculating...</div>
+        {% if deadline_ist %}
+        <span id="deadline" data-deadline="{{ deadline_ist }}"></span>
+        {% endif %}
+      </div>
+
+      <!-- Upload Form -->
+      <form method="POST" enctype="multipart/form-data" class="mt-4">
+        <div class="mb-4">
+          <label for="resume" class="form-label fw-semibold">
+            <i class="fas fa-file-alt text-primary"></i> Upload Resume (PDF/DOC/DOCX)
+          </label>
+          <input type="file" class="form-control" name="resume" id="resume" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="mb-4">
+          <label for="photo" class="form-label fw-semibold">
+            <i class="fas fa-image text-primary"></i> Upload Photo (JPG/PNG)
+          </label>
+          <input type="file" class="form-control" name="photo" id="photo" accept=".jpg,.jpeg,.png">
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+          <a href="{{ url_for('student_dashboard') }}" class="btn btn-outline-secondary px-4">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="fas fa-paper-plane"></i> Submit Files
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Countdown Timer Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const deadlineElem = document.getElementById("deadline");
+  const timerElem = document.getElementById("countdown");
+
+  if (!deadlineElem || !timerElem) return;
+
+  const deadlineStr = deadlineElem.getAttribute("data-deadline");
+  const deadline = new Date(deadlineStr).getTime();
+  const status = "{{ app.status }}";
+
+  // ✅ Stop timer if already submitted
+  if (status === "submitted") {
+    timerElem.innerHTML = "✅ Files submitted — timer stopped";
+    timerElem.classList.add("text-success", "fw-bold");
+    return;
+  }
+
+  function updateTimer() {
+    const now = new Date().getTime();
+    const distance = deadline - now;
+
+    if (distance <= 0) {
+      timerElem.innerHTML = "⏰ Time’s up — upload window closed!";
+      timerElem.classList.remove("text-primary");
+      timerElem.classList.add("text-danger", "fw-bold");
+      return;
+    }
+
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 48);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    timerElem.innerHTML = `${hours}h : ${minutes}m : ${seconds}s`;
+
+    if (distance < 3600000) { // <1 hour left
+      timerElem.classList.add("text-warning");
+    }
+
+    setTimeout(updateTimer, 1000);
+  }
+
+  updateTimer();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Job Details | Know-Thyself{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body">
+      <h3 class="fw-bold text-primary mb-3">{{ job.title }}</h3>
+      <p class="text-muted">{{ job.description }}</p>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <p><strong>Vacancies:</strong> {{ job.vacancies }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Deadline:</strong>
+            {% if deadline_ist %}
+              {{ deadline_ist.strftime('%d %b %Y, %I:%M %p') }} IST
+            {% else %}
+              Not set
+            {% endif %}
+          </p>
+        </div>
+      </div>
+
+      {% if job.specifications %}
+      <div class="mt-3">
+        <h5 class="fw-semibold text-secondary">Specifications:</h5>
+        <ul>
+          {% for spec in job.specifications %}
+          <li>{{ spec }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <a href="{{ url_for('student_dashboard') }}" class="btn btn-outline-secondary">
+          <i class="fas fa-arrow-left"></i> Back
+        </a>
+
+        {% if job.vacancies > 0 %}
+        <form method="POST" action="{{ url_for('apply_job', job_id=str(job._id)) }}">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Apply Now
+          </button>
+        </form>
+        {% else %}
+        <button class="btn btn-outline-danger" disabled>
+          <i class="fas fa-ban"></i> No Vacancies Left
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

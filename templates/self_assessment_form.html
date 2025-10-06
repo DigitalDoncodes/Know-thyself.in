@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ assessment.title }}{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-light mb-4">{{ assessment.title }}</h2>
+  <form method="POST">
+    {% for q in assessment.questions %}
+    <div class="mb-3">
+      <label class="text-light">{{ loop.index }}. {{ q }}</label>
+      <select name="q{{ loop.index }}" class="form-control bg-dark text-light">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neutral</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+      </select>
+    </div>
+    {% endfor %}
+    <button class="btn btn-primary">Submit Assessment</button>
+  </form>
+</div>
+{% endblock %}

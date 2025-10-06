@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Submit Corrections</h2>
+    <p>Please re-upload your resume and photo as requested by the teacher.</p>
+
+    <form method="POST" action="{{ url_for('corrections', application_id=application_id) }}" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+            <label for="resume">Updated Resume (PDF only)</label>
+            <input type="file" class="form-control-file" id="resume" name="resume" accept=".pdf" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="photo">Updated Photo (JPG or PNG)</label>
+            <input type="file" class="form-control-file" id="photo" name="photo" accept=".jpg, .jpeg, .png" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Corrections</button>
+    </form>
+</div>
+{% endblock %}

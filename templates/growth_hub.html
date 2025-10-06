@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}Growth Hub - {{ theme|capitalize }}{% endblock %}
+
+{% block head %}
+<style>
+  .question-card {
+    display: none;
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    animation: fadeIn 0.5s ease;
+  }
+  .question-card.active { display: block; }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  /* Progress Bar Container */
+  .progress-container {
+    background: #f1f5f9;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    height: 18px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Animated Gradient Progress Bar */
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(270deg, #2563eb, #7c3aed, #0ea5e9, #f97316);
+    background-size: 600% 600%;
+    animation: gradientMove 6s ease infinite;
+    transition: width 0.4s ease;
+  }
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Navigation Buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  }
+  .btn-success {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    border: none;
+  }
+  .btn-success:hover {
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+  }
+  .btn-warning {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+    border: none;
+    color: #fff;
+  }
+  .btn-warning:hover {
+    background: linear-gradient(90deg, #d97706, #f59e0b);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 text-center">🌱 Growth Hub: {{ theme.replace('_', ' ').title() }}</h2>
+
+  <!-- Progress bar -->
+  <div class="progress-container">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+  <p class="text-center fw-bold"><span id="progressText">Question 1 of {{ questions|length }}</span></p>
+
+  <form method="POST" action="{{ url_for('growth_hub', theme=theme) }}">
+    {% for q in questions %}
+      <div class="question-card {% if loop.index == 1 %}active{% endif %}" id="q{{ q.id }}">
+        <h5>{{ q.id }}. {{ q.question }}</h5>
+        <textarea name="q{{ q.id }}" class="form-control mt-3" rows="3"
+          placeholder="Write your thoughts...">{{ saved_answers.get(q.question, '') }}</textarea>
+      </div>
+    {% endfor %}
+
+    <div class="nav-buttons">
+      <a href="{{ url_for('growth_hub_menu') }}" class="btn btn-outline-secondary">⬅ Back to Themes</a>
+      <button type="button" id="prevBtn" class="btn btn-secondary" disabled>⬅ Previous</button>
+      <button type="button" id="nextBtn" class="btn btn-primary">Next ➡</button>
+      <button type="submit" name="save_partial" value="1" class="btn btn-warning">💾 Save & Continue Later</button>
+      <button type="submit" name="submit_all" value="1" id="submitBtn" class="btn btn-success d-none">✅ Submit</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const total = {{ questions|length }};
+  let current = 1;
+
+  const showQuestion = (n) => {
+    document.querySelectorAll('.question-card').forEach((card, i) => {
+      card.classList.remove('active');
+      if (i === n-1) card.classList.add('active');
+    });
+    document.getElementById("progressBar").style.width = (n/total * 100) + "%";
+    document.getElementById("progressText").innerText = `Question ${n} of ${total}`;
+    document.getElementById("prevBtn").disabled = (n === 1);
+    document.getElementById("nextBtn").style.display = (n === total) ? "none" : "inline-block";
+    document.getElementById("submitBtn").classList.toggle("d-none", n !== total);
+  };
+
+  document.getElementById("nextBtn").onclick = () => { if (current < total) { current++; showQuestion(current); } };
+  document.getElementById("prevBtn").onclick = () => { if (current > 1) { current--; showQuestion(current); } };
+
+  showQuestion(current);
+</script>
+{% endblock %}

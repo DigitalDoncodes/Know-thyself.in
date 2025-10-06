@@ -1,0 +1,981 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* Import Google Fonts (if not already in base.html style) */
+/* Assuming Inter font family from base.html */
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Dashboard Container with Animated Background */
+.dashboard-container {
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite; /* Ensure this keyframe is in base.html or duplicated here */
+    padding-bottom: 2rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Keyframe from base.html to ensure it's defined */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* Hero Section with Particles */
+.hero-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.3), transparent);
+    background-repeat: repeat;
+    background-size: 150px 100px;
+    animation: particleFloat 20s linear infinite;
+}
+
+@keyframes particleFloat {
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(-150px); }
+}
+
+.hero-title {
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #ffd700, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* Standard property for background-clip */
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    font-weight: 300;
+}
+
+/* User Stats with Pulse Animation */
+.user-stats {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 1.5rem;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.stat-item {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Action Cards with Advanced Hover Effects */
+.action-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.action-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.action-card-body {
+    padding: 2rem;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.action-card:hover .card-glow {
+    opacity: 1;
+}
+
+/* Action Icons with Gradients */
+.action-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.rotating-icon {
+    animation: rotate 4s linear infinite;
+}
+
+.floating-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Section Cards with Glass Morphism */
+.section-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+}
+
+.bounce-icon {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    80% { transform: translateY(-5px); }
+}
+
+/* Modern Table with Animations */
+.modern-table {
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.modern-table th {
+    border: none;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    font-weight: 600;
+    color: #333;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.slide-in-left {
+    /* Animation definition: from here */
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.modern-table td {
+    border: none;
+    padding: 1.5rem;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.table-row:hover {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
+    transform: scale(1.01);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.hover-underline {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.hover-underline:hover {
+    color: #667eea;
+}
+
+.hover-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+    width: 100%;
+}
+
+/* Status Badges with Morphing Animation */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.morph-animation {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.morph-animation:hover {
+    transform: scale(1.1);
+}
+
+.status-pending_resume {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    color: #856404;
+}
+
+.status-submitted {
+    background: linear-gradient(135deg, #d1ecf1 0%, #a8e6cf 100%);
+    color: #0c5460;
+}
+
+.status-approved {
+    background: linear-gradient(135deg, #d4edda 0%, #c8e6c9 100%);
+    color: #155724;
+}
+
+.status-rejected {
+    background: linear-gradient(135deg, #f8d7da 0%, #ffcdd2 100%);
+    color: #721c24;
+}
+
+.pulse-icon {
+    animation: pulseIcon 1.5s infinite;
+}
+
+@keyframes pulseIcon {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Job Cards with 3D Effects */
+.job-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.job-card:hover {
+    transform: translateY(-15px) rotateX(5deg);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.card-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    transform: rotate(45deg);
+    transition: all 0.6s;
+    opacity: 0;
+}
+
+.job-card:hover .card-shine {
+    opacity: 1;
+    animation: shine 0.6s ease-in-out;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* Standard property for background-clip */
+}
+
+/* Button Effects */
+.apply-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.magnetic-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
+}
+
+.btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-grow:hover {
+    transform: scale(1.1);
+}
+
+/* File Upload with Glow Effect */
+.file-label:hover {
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    border-color: #007bff;
+    color: #007bff;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+}
+
+/* Empty State Animations */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #666;
+}
+
+.floating-animation {
+    animation: floatingEmpty 3s ease-in-out infinite;
+}
+
+@keyframes floatingEmpty {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.empty-icon {
+    font-size: 5rem;
+    color: #ddd;
+    margin-bottom: 2rem;
+}
+
+.typewriter {
+    overflow: hidden;
+    border-right: 0.15em solid #007bff;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #007bff; }
+}
+
+.fade-in-delay {
+    animation: fadeInDelay 2s ease-in-out;
+}
+
+@keyframes fadeInDelay {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Counter Animation */
+.counter-animation {
+    animation: countUp 2s ease-out;
+}
+
+@keyframes countUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Badge Pulse */
+.pulse-badge {
+    animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Success Animation */
+.success-animation {
+    animation: successPulse 2s infinite;
+}
+
+@keyframes successPulse {
+    0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+/* Warning Animation */
+.warning-animation {
+    animation: warningGlow 1.5s infinite alternate;
+}
+
+@keyframes warningGlow {
+    from { box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); }
+    to { box-shadow: 0 0 20px rgba(255, 193, 7, 0.8); }
+}
+
+/* Shake Animation */
+.shake-animation {
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .action-card-body {
+        padding: 1.5rem;
+    }
+    
+    .section-header {
+        padding: 1.5rem;
+    }
+    
+    .section-body {
+        padding: 1.5rem;
+    }
+    
+    .job-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="hero-section animate__animated animate__fadeInDown">
+        <div class="hero-particles"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="hero-title animate__animated animate__fadeInLeft">
+                        Welcome back, <span class="text-gradient">{{ current_user.name }}</span>!
+                    </h1>
+                    <p class="hero-subtitle animate__animated animate__fadeInLeft animate__delay-1s">
+                        Track your applications and discover new opportunities
+                    </p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="user-stats animate__animated animate__zoomIn animate__delay-1s">
+                        <div class="stat-item pulse-animation">
+                            <i class="bi bi-briefcase-fill"></i>
+                            <span>{{ apps|length }} Applications</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row mb-4 g-3">
+            <div class="col-md-6 col-lg-3">
+                <div class="action-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                    <div class="action-card-body" data-bs-toggle="modal" data-bs-target="#cvGuidelinesModal">
+                        <div class="action-icon bg-gradient-info">
+                            <i class="bi bi-file-text-fill"></i>
+                        </div>
+                        <h6>CV Guidelines</h6>
+                        <p>View resume requirements</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="action-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                    <div class="action-card-body" onclick="window.location.href='{{ url_for('support') }}'">
+                        <div class="action-icon bg-gradient-success">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <h6>Support Center</h6>
+                        <p>Get help & assistance</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="action-card animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                    <div class="action-card-body">
+                        <div class="action-icon bg-gradient-warning">
+                            <i class="bi bi-clock-fill rotating-icon"></i>
+                        </div>
+                        <h6>Active Applications</h6>
+                        {% set active_count = apps|selectattr('status', 'in', ['pending_resume', 'submitted', 'approved'])|list|length %}
+                        <p class="counter-animation" data-count="{{ active_count }}">{{ active_count }} ongoing</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="action-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                    <div class="action-card-body">
+                        <div class="action-icon bg-gradient-primary">
+                            <i class="bi bi-search floating-icon"></i>
+                        </div>
+                        <h6>Available Jobs</h6>
+                        <p class="counter-animation" data-count="{{ jobs|length }}">{{ jobs|length }} open positions</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.5s;">
+            <div class="section-header">
+                <h4><i class="bi bi-folder-fill me-2 bounce-icon"></i>Your Applications</h4>
+                <div class="header-decoration"></div>
+            </div>
+            <div class="section-body">
+                {% if apps %}
+                    <div class="table-responsive">
+                        <table class="table modern-table">
+                            <thead>
+                                <tr>
+                                    <th class="slide-in-left">Job Position</th>
+                                    <th class="slide-in-left" style="animation-delay: 0.1s;">Status</th>
+                                    <th class="slide-in-left" style="animation-delay: 0.2s;">Deadline</th>
+                                    <th class="slide-in-left" style="animation-delay: 0.3s;">Resume</th>
+                                    <th class="slide-in-left" style="animation-delay: 0.4s;">Feedback</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for app in apps %}
+                                <tr class="table-row animate__animated animate__fadeIn" style="animation-delay: {{ loop.index0 * 0.1 }}s;">
+                                    <td>
+                                        <div class="job-info">
+                                            <strong class="hover-underline">{{ app.job.title }}</strong>
+                                            <small class="text-muted d-block fade-in">Applied: {{ app.applied_at.strftime('%Y-%m-%d') if app.applied_at else '-' }}</small>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge status-{{ app.status }} morph-animation">
+                                            <i class="bi bi-{{ 'check-circle-fill' if app.status == 'approved' else 'x-circle-fill' if app.status == 'rejected' else 'clock-fill' }} pulse-icon"></i>
+                                            {{ app.status.replace('_', ' ').title() }}
+                                        </span>
+                                        {% if app.status_message %}
+                                            <div class="status-message slide-down">{{ app.status_message }}</div>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if app.resume_deadline %}
+                                            <span class="deadline-info glow-text">
+                                                {{ app.resume_deadline.strftime('%Y-%m-%d %H:%M') }}
+                                            </span>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="resume-actions">
+                                            {% if app.resume_filename %}
+                                                <a href="{{ url_for('view_resume', filename=app.resume_filename) }}" 
+                                                   target="_blank" class="btn btn-sm btn-outline-primary me-1 hover-lift">
+                                                    <i class="bi bi-eye"></i> View
+                                                </a>
+                                                <a href="{{ url_for('download_resume', filename=app.resume_filename) }}" 
+                                                   class="btn btn-sm btn-outline-secondary hover-lift">
+                                                    <i class="bi bi-download"></i> Download
+                                                </a>
+                                            {% elif app.status == 'pending_resume' %}
+                                                <form action="{{ url_for('upload', app_id=app._id) }}"
+                                                      method="post" enctype="multipart/form-data"
+                                                      onsubmit="return confirm('Are you sure you want to upload this resume?');"
+                                                      class="upload-form">
+                                                    <div class="file-upload-wrapper">
+                                                        <input type="file" name="resume" accept="application/pdf" 
+                                                               required class="file-input" id="file-{{ app._id }}">
+                                                        <label for="file-{{ app._id }}" class="file-label hover-scale">
+                                                            <i class="bi bi-upload"></i> Choose PDF
+                                                        </label>
+                                                        <button type="submit" class="btn btn-sm btn-primary ms-2 pulse-btn">
+                                                            <i class="bi bi-cloud-upload"></i> Upload
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if app.teacher_feedback %}
+                                            <div class="feedback-tooltip hover-grow" data-bs-toggle="tooltip" title="{{ app.teacher_feedback }}">
+                                                <i class="bi bi-chat-square-text-fill text-info pulse-icon"></i>
+                                                <span class="ms-1">View Feedback</span>
+                                            </div>
+                                        {% else %}
+                                            <span class="text-muted">No feedback</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="empty-state animate__animated animate__bounceIn">
+                        <div class="empty-icon floating-animation">
+                            <i class="bi bi-inbox"></i>
+                        </div>
+                        <h5 class="typewriter">No Applications Yet</h5>
+                        <p class="fade-in-delay">Start by applying to one of the available jobs below</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+            <div class="section-header">
+                <h4><i class="bi bi-briefcase-fill me-2 bounce-icon"></i>Available Opportunities</h4>
+                {% if jobs %}
+                    <span class="badge bg-primary rounded-pill pulse-badge">{{ jobs|length }} positions</span>
+                {% endif %}
+                <div class="header-decoration"></div>
+            </div>
+            <div class="section-body">
+                {% if jobs %}
+                    <div class="row g-4">
+                        {% for job in jobs %}
+                            <div class="col-md-6 col-lg-4">
+                                <div class="job-card animate__animated animate__zoomIn" style="animation-delay: {{ loop.index0 * 0.1 }}s;">
+                                    <div class="job-card-header">
+                                        <h5 class="job-title gradient-text">{{ job.title }}</h5>
+                                        <div class="job-meta">
+                                            <span class="vacancy-count pulse-animation">
+                                                <i class="bi bi-people-fill"></i> {{ job.vacancies }} vacancies
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="job-card-body">
+                                        <div class="job-description fade-scroll">{{ job.description }}</div>
+                                    </div>
+                                    <div class="job-card-footer">
+                                        {% if job._id in applied_ids %}
+                                            <button class="btn btn-success w-100 success-animation" disabled>
+                                                <i class="bi bi-check-circle-fill"></i> Applied
+                                            </button>
+                                        {% elif has_active %}
+                                            <button class="btn btn-warning w-100 warning-animation" disabled>
+                                                <i class="bi bi-exclamation-triangle-fill"></i> Active Application Exists
+                                            </button>
+                                        {% elif job.vacancies <= 0 %}
+                                            <button class="btn btn-danger w-100 shake-animation" disabled>
+                                                <i class="bi bi-x-circle-fill"></i> No Vacancies
+                                            </button>
+                                        {% else %}
+                                            <form method="POST" action="{{ url_for('apply', job_id=str(job._id)) }}" 
+                                                  onsubmit="return confirm('Are you sure you want to apply for {{ job.title }}?');">
+                                                <button type="submit" class="btn btn-primary w-100 apply-btn magnetic-btn">
+                                                    <i class="bi bi-send-fill"></i> Apply Now
+                                                    <div class="btn-ripple"></div>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-shine"></div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state animate__animated animate__bounceIn">
+                        <div class="empty-icon floating-animation">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h5 class="typewriter">No Jobs Available</h5>
+                        <p class="fade-in-delay">Check back later for new opportunities</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "guidelines_modal.html" %}
+
+{% block scripts %}
+<script>
+// Toggle Job Description
+function toggleDescription(card) {
+    const desc = card.querySelector('.job-description');
+    const isExpanded = desc.classList.toggle('expanded');
+    card.setAttribute('aria-expanded', isExpanded);
+    desc.style.maxHeight = isExpanded ? desc.scrollHeight + 'px' : '0';
+}
+
+// Toggle Upload Form
+function toggleUploadForm(appId) {
+    const form = document.getElementById('upload-form-' + appId);
+    form.classList.toggle('expanded');
+    form.style.maxHeight = form.classList.contains('expanded') ? form.scrollHeight + 'px' : '0';
+}
+
+// Progress Bar Simulation
+function showProgress(appId) {
+    const progress = document.getElementById('progress-' + appId);
+    const progressBar = document.getElementById('progress-bar-' + appId);
+    if(progress && progressBar) {
+        progress.style.display = 'block';
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                progressBar.innerText = 'Uploaded!'; // Final state text
+            }
+            width += 10;
+            progressBar.style.width = width + '%';
+            if (width < 100) {
+                progressBar.innerText = width + '%'; // Update percentage
+            }
+        }, 100); // Faster update for demo
+    }
+    return true; // Allow form to submit
+}
+
+// Counter animation
+document.querySelectorAll('.counter-animation').forEach(counter => {
+    const target = parseInt(counter.getAttribute('data-count'));
+    const duration = 2000; // 2 seconds
+    const start = 0;
+    let startTime = null;
+
+    const animateCount = (currentTime) => {
+        if (!startTime) startTime = currentTime;
+        const progress = (currentTime - startTime) / duration;
+        const value = Math.min(progress, 1) * target;
+        counter.textContent = Math.floor(value) + (counter.textContent.includes('ongoing') ? ' ongoing' : ' open positions');
+        if (progress < 1) {
+            requestAnimationFrame(animateCount);
+        }
+    };
+    requestAnimationFrame(animateCount);
+});
+
+// Magnetic button effect
+document.querySelectorAll('.magnetic-btn').forEach(button => {
+    button.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const moveX = (x - centerX) / centerX * 8; // Adjust 8 for intensity
+        const moveY = (y - centerY) / centerY * 8;
+        this.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+    button.addEventListener('mouseleave', function() {
+        this.style.transform = 'translate(0, 0)';
+    });
+});
+
+// Card shine effect
+document.querySelectorAll('.job-card').forEach(card => {
+    card.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const shine = this.querySelector('.card-shine');
+        if (shine) {
+            shine.style.left = `${x}px`;
+            shine.style.top = `${y}px`;
+            shine.style.transform = `translate(-50%, -50%) rotate(45deg) scale(1)`; // Keep scale at 1
+            shine.style.opacity = '1';
+        }
+    });
+    card.addEventListener('mouseleave', function() {
+        const shine = this.querySelector('.card-shine');
+        if (shine) {
+            shine.style.opacity = '0';
+            shine.style.transform = `translate(-50%, -50%) rotate(45deg) scale(0)`;
+        }
+    });
+});
+
+
+// Tooltip Initialization
+document.addEventListener('DOMContentLoaded', function () {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+</script>
+{% endblock %}

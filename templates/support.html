@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% block title %}Support Center{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 py-12 sm:py-16 min-h-screen">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+        Support Center
+      </h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+        Find answers to common questions and get help with the platform.
+      </p>
+    </div>
+
+    <!-- FAQ Accordion Sections Container -->
+    <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-12">
+      
+      <!-- Account & Registration Questions -->
+      <div class="space-y-6">
+        <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2">Account & Registration</h3>
+        <div class="space-y-4">
+          <!-- Accordion Item 1 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>How do I create a student account?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Click on "Sign Up" from the login page. Fill in your student ID, full name, email, phone number, and create a secure password. Your account will be created immediately and you can start using the portal.
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>I forgot my password, how can I reset it?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Currently, password reset must be done manually. Please contact our support team at <a href="mailto:psychologyresumemail@gmail.com" class="text-indigo-600 hover:text-indigo-800">psychologyresumemail@gmail.com</a> for assistance.
+            </div>
+          </div>
+           <!-- Accordion Item 3 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>Why is my student ID not working during login?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Make sure you're entering your student ID exactly as you registered it. Student IDs are case-sensitive. If you're still having trouble, contact support with your registration details.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Application Process -->
+      <div class="mt-10 space-y-6">
+        <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2">Job Application Process</h3>
+        <div class="space-y-4">
+          <!-- Accordion Item 1 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>How can a student apply for a job?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Students can view open jobs on their dashboard and click the "Apply Now" button. You can only have one active application at a time to ensure focused job searching.
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>Why can I only apply for one job at a time?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              This policy ensures students give their full attention to each application and helps maintain quality applications. Once your current application is completed (approved/rejected), you can apply for another position.
+            </div>
+          </div>
+           <!-- Accordion Item 3 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>How long do I have to upload my resume after applying?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              You have <strong>48 hours</strong> from the time you click "Apply Now" to upload your resume. After this deadline, your application will be automatically rejected.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+       <!-- Resume & Documents -->
+      <div class="mt-10 space-y-6">
+        <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2">Resume & Documents</h3>
+        <div class="space-y-4">
+          <!-- Accordion Item 1 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>What should I include in my resume?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Include your personal information, educational background, skills, any work experience or internships, projects, certifications, and relevant achievements. Keep it concise, well-formatted, and tailored to the job you're applying for.
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>What's the maximum file size for resume upload?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              The maximum file size allowed is <strong>5MB</strong>. Most PDF resumes are well under this limit. If your file is too large, try compressing the PDF or reducing image quality if it contains photos.
+            </div>
+          </div>
+           <!-- Accordion Item 3 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>What should I do if I uploaded the wrong resume or applied for the wrong job?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              If you've uploaded an incorrect resume or applied for the wrong position, please reach out to us immediately. Draft an email explaining your situation and send it to 
+              <a href="mailto:psychologyresumemail@gmail.com" class="text-indigo-600 hover:text-indigo-800">psychologyresumemail@gmail.com</a> or 
+              <a href="mailto:dhatchinamoorthiai@gmail.com" class="text-indigo-600 hover:text-indigo-800">dhatchinamoorthiai@gmail.com</a>. 
+              Our team will review your request and help resolve the issue promptly.
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <!-- Application Status & Timeline -->
+      <div class="mt-10 space-y-6">
+        <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2">Application Status & Timeline</h3>
+        <div class="space-y-4">
+          <!-- Accordion Item 1 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>When will my job be confirmed?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Your application will be reviewed by the teacher once your resume is uploaded within <strong>48 hours</strong> of applying. After the review process is complete, you will receive confirmation about your application status.
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>How do I check the status of my application?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Log into your student dashboard to view your current application status. The status will show as "Pending Resume," "Submitted," "Approved," "Rejected," or "Corrections Needed."
+            </div>
+          </div>
+          <!-- Accordion Item 3 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>What does 'corrections_needed' status mean?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              This means the teacher has reviewed your application and requires some modifications or additional information. Check for feedback comments and contact support if you need clarification on what changes are needed.
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <!-- Mobile & Accessibility -->
+      <div class="mt-10 space-y-6">
+        <h3 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2">Mobile & Accessibility</h3>
+        <div class="space-y-4">
+          <!-- Accordion Item 1 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>Can I use this portal on my smartphone?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              Yes! The portal is fully responsive and works on smartphones, tablets, and computers. All features including job browsing, application submission, and resume upload work seamlessly on mobile devices.
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div class="border-b border-gray-200 py-4 cursor-pointer" onclick="toggleAccordion(this)">
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-900">
+              <h4>Does the portal work on all browsers?</h4>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200 accordion-arrow" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="accordion-content mt-2 text-gray-600 hidden">
+              The portal works best on modern browsers like Chrome, Firefox, Safari, and Edge. For the best experience, please ensure your browser is updated to the latest version.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Still Need Help Section -->
+    <div class="mt-12 text-center p-6 bg-gray-50 rounded-xl shadow-lg">
+      <h4 class="text-2xl font-bold text-gray-900">Still Need Help?</h4>
+      <p class="mt-2 text-gray-600">If you couldn't find the answer to your question, don't hesitate to reach out to our support team.</p>
+      <div class="mt-6 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="mailto:psychologyresumemail@gmail.com" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+          Email Support
+        </a>
+        <a href="{{ url_for('contact') }}" class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleAccordion(element) {
+    const content = element.querySelector('.accordion-content');
+    const arrow = element.querySelector('.accordion-arrow');
+    
+    // Toggle the visibility of the content
+    content.classList.toggle('hidden');
+    
+    // Rotate the arrow icon
+    arrow.classList.toggle('rotate-180');
+  }
+</script>
+{% endblock %}

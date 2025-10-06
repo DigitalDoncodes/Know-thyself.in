@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { background: #f8fafc; font-family: 'Poppins', Arial, sans-serif; padding: 35px;}
+    .mail-container {
+      background: #fff; border-radius: 18px;
+      max-width: 540px; margin:40px auto; box-shadow: 0 3px 18px #0001; padding: 34px 32px 30px;
+      border: 4px solid #42a5f5;
+    }
+    .title { color: #1976d2; font-size: 1.4em; font-weight: 700; margin-bottom: 19px; }
+    .thanks { color: #43a047; font-size: 1.13em; margin-bottom: 16px;}
+    .meta {margin:20px 0; padding: 11px 17px; background: #e3f2fd; border-radius: 12px;}
+    .footer { margin-top: 34px; color: #777; font-size: 0.99em;}
+  </style>
+</head>
+<body>
+  <div class="mail-container">
+    <div class="title">Thank you for your application, {{ name }}!</div>
+    <div class="thanks">Your résumé &amp; photo for the job: <b>{{ job_title }}</b> have been successfully received.</div>
+    <div class="meta">
+      <strong>Application ID:</strong> {{ application_id }}<br>
+      <strong>Date:</strong> {{ submitted_date }}
+    </div>
+    <p>
+      Our selection team will review your application soon. <br>
+      You’ll receive a further email when a decision is made.<br>
+    </p>
+    <div class="footer">
+      — Team KnowThyself<br>
+      <i>https://know-thyself.in</i>
+    </div>
+  </div>
+</body>
+</html>

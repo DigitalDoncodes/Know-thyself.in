@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Application Not Successful - Know-Thyself</title>
+</head>
+<body style="background:#f0f4f8; margin:0; padding:0;">
+  <table align="center" width="100%" style="background:#f0f4f8;">
+    <tr>
+      <td align="center">
+        <table width="480" style="background:#fff; border-radius:18px; margin:32px auto; box-shadow:0 4px 24px #667eea15;">
+          <tr>
+            <td style="padding:32px 0 12px 0; text-align:center; background:linear-gradient(90deg,#f85032,#e73827)">
+              <img src="https://res.cloudinary.com/ddqeqxamf/image/upload/v1754506544/psychology_logo_dqa0hs.jpg" alt="Know-Thyself" width="150" height="150" style="border-radius:16px; box-shadow:0 2px 8px #0001;">
+              <div style="font-family:'Segoe UI',Arial,sans-serif; font-weight:bold; font-size:1.6rem; color:#fff; margin-top:12px;">
+                Know-Thyself
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:32px 32px 12px 32px; font-family:'Segoe UI',Arial,sans-serif; color:#222;">
+              <h2 style="margin-top:0;">Application Update</h2>
+              <div style="font-size:1.10rem; line-height:1.6;">
+                We regret to inform you that your application for <strong>{{ job_title }}</strong> was <span style="color:#e73827;"><strong>not successful</strong></span> this time.<br><br>
+                Do not be discouraged—many students succeed after a few tries. You're encouraged to apply for more opportunities in the portal.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:32px;">
+              <a href="{{ portal_link }}" style="background:#f85032; color:#fff; font-weight:bold; border-radius:30px; font-size:1.12rem; padding: 14px 40px; display:inline-block; text-decoration:none;">
+                View Other Jobs
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0 0 24px 0; text-align:center;">
+              <div style="font-size:0.93em; color:#b2becd;">&copy; {{ current_year or 2025 }} Team Know-Thyself </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

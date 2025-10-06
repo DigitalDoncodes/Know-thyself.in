@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}Applications for {{ job.title }}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <!-- Header Section -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2>Applications for: {{ job.title }}</h2>
+      <p class="text-muted mb-0">{{ job.description[:150] }}{% if job.description|length > 150 %}...{% endif %}</p>
+    </div>
+    <a href="{{ url_for('teacher_dashboard') }}" class="btn btn-secondary">
+      <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </a>
+  </div>
+
+  <!-- Job Details Card -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Vacancies:</strong> {{ job.vacancies }}
+        </div>
+        <div class="col-md-3">
+          <strong>Status:</strong> 
+          <span class="badge bg-success">{{ job.status.replace('_', ' ').title() if job.status else 'Open' }}</span>
+        </div>
+        <div class="col-md-3">
+          <strong>Created:</strong> {{ job.created_at.strftime('%Y-%m-%d') if job.created_at else 'N/A' }}
+        </div>
+        <div class="col-md-3">
+          <strong>Total Applications:</strong> {{ applications|length }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applications Table -->
+  {% if applications %}
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Student Applications</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Student</th>
+                <th>Status</th>
+                <th>Applied At</th>
+                <th>Resume</th>
+                <th>Upload Time</th>
+                <th>Teacher Feedback</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for app in applications %}
+              <tr>
+                <td>
+                  <div>
+                    <strong>{{ app.user.name }}</strong><br>
+                    <small class="text-muted">{{ app.user.email }}</small><br>
+                    {% if app.user.phone %}
+                      <small class="text-muted">{{ app.user.phone }}</small>
+                    {% endif %}
+                  </div>
+                </td>
+                <td>
+                  {% set status_class = {
+                    'approved': 'success',
+                    'rejected': 'danger',
+                    'pending_resume': 'warning',
+                    'submitted': 'info',
+                    'corrections_needed': 'warning'
+                  } %}
+                  <span class="badge bg-{{ status_class.get(app.status, 'secondary') }}">
+                    {{ app.status.replace('_', ' ').title() }}
+                  </span>
+                </td>
+                <td>
+                  {% if app.applied_at %}
+                    {{ app.applied_at.strftime('%Y-%m-%d %H:%M') }}
+                  {% else %}
+                    <span class="text-muted">-</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if app.resume_filename %}
+                    <a href="{{ url_for('view_resume', filename=app.resume_filename) }}" 
+                       target="_blank" class="btn btn-sm btn-outline-primary">
+                      <i class="bi bi-file-earmark-pdf"></i> View
+                    </a>
+                  {% else %}
+                    <span class="text-muted">Not uploaded</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if app.upload_duration_hours is not none %}
+                    <small class="text-success">{{ app.upload_duration_hours }}h</small>
+                  {% else %}
+                    <span class="text-muted">-</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if app.teacher_feedback %}
+                    <small>{{ app.teacher_feedback[:50] }}{% if app.teacher_feedback|length > 50 %}...{% endif %}</small>
+                  {% else %}
+                    <span class="text-muted">-</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{{ url_for('assess_students') }}?name={{ app.user.name }}" 
+                     class="btn btn-sm btn-outline-secondary" title="Assess this application">
+                    <i class="bi bi-pencil"></i> Assess
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">No Applications Yet</h4>
+      <p>No students have applied for this job yet. Applications will appear here once students start applying.</p>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Bootstrap Icons (if not already included) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+{% endblock %}
