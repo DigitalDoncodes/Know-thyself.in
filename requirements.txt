@@ -23,3 +23,37 @@ python-magic==0.4.27
 filetype==1.2.0
 APScheduler==3.10.4
 pytz==2025.1
+# ---- Flask Core ----
+Flask==3.0.3
+Werkzeug==3.0.3
+itsdangerous==2.2.0
+MarkupSafe==3.0.2
+click==8.1.7
+
+# ---- Auth & Forms ----
+Flask-Login==0.6.3
+Flask-WTF==1.2.1
+WTForms==3.1.2
+
+# ---- MongoDB ----
+pymongo==4.8.0
+dnspython==2.8.0
+
+# ---- Environment Variables ----
+python-dotenv==1.0.1
+
+# ---- Email / API ----
+requests==2.32.3
+
+# ---- Utilities ----
+pytz==2024.1
+
+# ---- Data Export (CSV/Excel) ----
+pandas==2.2.3
+numpy==2.1.2
+
+# ---- Optional (Cloudinary for logo hosting) ----
+cloudinary==1.41.0
+
+# ---- Production (if deploying) ----
+gunicorn==23.0.0
