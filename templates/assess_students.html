@@ -1,104 +1,195 @@
 {% extends "base.html" %}
-{% block title %}Assess Students | Teacher Dashboard{% endblock %}
+{% block title %}Assess Students | Know-Thyself{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-  <h2 class="text-center fw-bold mb-4 text-primary">
-    <i class="fas fa-user-check"></i> Assess Student Applications
-  </h2>
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-primary">
+      <i class="fas fa-user-check"></i> Assess Applicants for {{ job.title }}
+    </h2>
+    <p class="text-muted">Review student applications, view files, and update their status.</p>
+    <a href="{{ url_for('manage_jobs') }}" class="btn btn-outline-secondary btn-sm mt-2">
+      <i class="fas fa-arrow-left"></i> Back to Manage Jobs
+    </a>
+  </div>
+
   {% if applications %}
-  <div class="card shadow-lg border-0 rounded-4">
-    <div class="card-body">
-      <table class="table table-hover align-middle">
-        <thead class="table-dark">
-          <tr class="text-center">
-            <th>Student Name</th>
-            <th>Email</th>
-            <th>Job Title</th>
-            <th>Status</th>
-            <th>Resume</th>
-            <th>Upload Time</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for app in applications %}
-          <tr class="text-center">
-            <td class="fw-semibold">{{ app.student_name }}</td>
-            <td class="text-muted">{{ app.student_email }}</td>
-            <td>{{ app.job_title }}</td>
-            <td>
-              <span class="badge 
-                {% if app.status == 'submitted' %} bg-success 
-                {% elif app.status == 'upload_required' %} bg-warning text-dark 
-                {% elif app.status == 'approved' %} bg-primary 
-                {% elif app.status == 'rejected' %} bg-danger 
-                {% else %} bg-secondary {% endif %}">
-                {{ app.status|replace("_", " ")|capitalize }}
-              </span>
-            </td>
-            <td>
-              {% if app.resume_filename %}
-                <a href="{{ url_for('view_file', filename=app.resume_filename)}}" 
-                   class="btn btn-sm btn-outline-primary">
-                  <i class="fas fa-file-pdf"></i> View
-                </a>
-              {% else %}
-                <span class="text-muted">Not uploaded</span>
-              {% endif %}
-            </td>
-            <td>
-              {{ app.upload_time.strftime('%d %b %Y, %I:%M %p') if app.upload_time else '-' }}
-            </td>
-            <td>
-              <form method="POST" action="{{ url_for('assess_students') }}" class="d-flex flex-column gap-2">
-                <input type="hidden" name="app_id" value="{{ app._id }}">
-                <select name="status" class="form-select form-select-sm" required>
-                  <option value="approved" {% if app.status == 'approved' %}selected{% endif %}>Approve</option>
-                  <option value="rejected" {% if app.status == 'rejected' %}selected{% endif %}>Reject</option>
-                  <option value="corrections_needed" {% if app.status == 'corrections_needed' %}selected{% endif %}>Request Corrections</option>
-                </select>
-                <textarea name="feedback" class="form-control form-control-sm" rows="2" placeholder="Enter feedback (optional)...">{{ app.teacher_feedback or '' }}</textarea>
-                <button type="submit" class="btn btn-success btn-sm w-100">
-                  <i class="fas fa-paper-plane"></i> Update
-                </button>
+  <div class="table-responsive shadow-lg rounded-4">
+    <table class="table table-hover align-middle text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>Student</th>
+          <th>Email</th>
+          <th>Photo</th>
+          <th>Resume</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="studentsTable">
+        {% for app in applications %}
+        {# define these once per row so both table + modal can use them #}
+        {% set photo_drive = app.photo_drive_link or app.photo_url or app.photo_link %}
+        {% set photo_grid_id = app.photo_file_id or app.photo_grid_id %}
+        {% set photo_local = app.photo_filename %}
+        {% set resume_drive = app.resume_drive_link or app.resume_url or app.resume_link %}
+        {% set resume_grid_id = app.resume_file_id or app.resume_grid_id %}
+        {% set resume_local = app.resume_filename %}
+
+        <tr>
+          <td class="fw-semibold">{{ app.student_name }}</td>
+          <td>{{ app.student_email }}</td>
+
+          <!-- ✅ Photo cell -->
+          <td>
+            {% if photo_drive %}
+              <a href="{{ photo_drive }}" target="_blank">
+                <img src="{{ photo_drive }}" class="rounded shadow-sm" style="width:60px;height:60px;object-fit:cover;">
+              </a>
+            {% elif photo_grid_id %}
+              <a href="{{ url_for('get_file', file_id=photo_grid_id) }}" target="_blank">
+                <img src="{{ url_for('get_file', file_id=photo_grid_id) }}" class="rounded shadow-sm" style="width:60px;height:60px;object-fit:cover;">
+              </a>
+            {% elif photo_local %}
+              <a href="{{ url_for('view_file', filename=photo_local) }}" target="_blank">
+                <img src="{{ url_for('view_file', filename=photo_local) }}" class="rounded shadow-sm" style="width:60px;height:60px;object-fit:cover;">
+              </a>
+            {% else %}
+              <span class="text-muted">No Photo</span>
+            {% endif %}
+          </td>
+
+          <!-- ✅ Resume cell -->
+          <td>
+            {% if resume_drive %}
+              <a href="{{ resume_drive }}" target="_blank" class="btn btn-sm btn-outline-dark">
+                <i class="fas fa-file-alt"></i> View
+              </a>
+            {% elif resume_grid_id %}
+              <a href="{{ url_for('get_file', file_id=resume_grid_id) }}" target="_blank" class="btn btn-sm btn-outline-dark">
+                <i class="fas fa-file-alt"></i> View
+              </a>
+            {% elif resume_local %}
+              <a href="{{ url_for('view_file', filename=resume_local) }}" target="_blank" class="btn btn-sm btn-outline-dark">
+                <i class="fas fa-file-alt"></i> View
+              </a>
+            {% else %}
+              <span class="text-muted">No Resume</span>
+            {% endif %}
+          </td>
+
+          <td>
+            <span class="badge 
+  {% if app.status == 'submitted' %}bg-info
+  {% elif app.status == 'under_review' %}bg-primary
+  {% elif app.status == 'resubmitted' %}bg-indigo text-white
+  {% elif app.status == 'approved' %}bg-success
+  {% elif app.status == 'rejected' %}bg-danger
+  {% elif app.status == 'corrections_needed' %}bg-warning text-dark
+  {% else %}bg-secondary{% endif %}">
+              
+              {{ app.status|replace("_", " ")|capitalize }}
+            </span>
+          </td>
+
+          <td>
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#assessModal{{ app.app_id_str }}">
+              <i class="fas fa-eye"></i> Assess
+            </button>
+          </td>
+        </tr>
+
+        <!-- Modal -->
+        <div class="modal fade" id="assessModal{{ app.app_id_str }}" tabindex="-1" aria-labelledby="modalLabel{{ app.app_id_str }}" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+              <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-user"></i> {{ app.student_name }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+              </div>
+
+              <form method="POST" action="{{ url_for('assess_students_for_job', job_id=job._id|string) }}" class="p-3">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="app_id" value="{{ app.app_id_str }}">
+
+                <div class="row">
+                  <div class="col-md-4 text-center mb-3">
+                    {% if photo_drive %}
+                      <img src="{{ photo_drive }}" class="img-fluid rounded shadow" style="max-height:200px;">
+                    {% elif photo_grid_id %}
+                      <img src="{{ url_for('get_file', file_id=photo_grid_id) }}" class="img-fluid rounded shadow" style="max-height:200px;">
+                    {% elif photo_local %}
+                      <img src="{{ url_for('view_file', filename=photo_local) }}" class="img-fluid rounded shadow" style="max-height:200px;">
+                    {% else %}
+                      <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="img-fluid" style="max-height:200px;">
+                    {% endif %}
+                  </div>
+
+                  <div class="col-md-8 text-start">
+                    <p><strong>Email:</strong> {{ app.student_email }}</p>
+                    <p><strong>Applied On:</strong> {{ app.application_time.strftime('%d %b %Y %I:%M %p') if app.application_time else '-' }}</p>
+
+                    {% if resume_drive %}
+                      <a href="{{ resume_drive }}" target="_blank" class="btn btn-outline-dark btn-sm mb-3">
+                        <i class="fas fa-file-alt"></i> View Resume
+                      </a>
+                    {% elif resume_grid_id %}
+                      <a href="{{ url_for('get_file', file_id=resume_grid_id) }}" target="_blank" class="btn btn-outline-dark btn-sm mb-3">
+                        <i class="fas fa-file-alt"></i> View Resume
+                      </a>
+                    {% elif resume_local %}
+                      <a href="{{ url_for('view_file', filename=resume_local) }}" target="_blank" class="btn btn-outline-dark btn-sm mb-3">
+                        <i class="fas fa-file-alt"></i> View Resume
+                      </a>
+                    {% endif %}
+
+                    <div class="mb-3">
+                      <label class="form-label fw-bold">Feedback</label>
+                      <textarea name="feedback" class="form-control" rows="3" placeholder="Write feedback...">{{ app.teacher_feedback or '' }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-bold">Status</label>
+                      <select name="status" class="form-select">
+                        <option value="submitted" {% if app.status == 'submitted' %}selected{% endif %}>Submitted</option>
+                        <option value="under_review" {% if app.status == 'under_review' %}selected{% endif %}>Under Review</option>
+                        <option value="corrections_needed" {% if app.status == 'corrections_needed' %}selected{% endif %}>Corrections Needed</option>
+                        <option value="approved" {% if app.status == 'approved' %}selected{% endif %}>Approved</option>
+                        <option value="rejected" {% if app.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit
+                  </button>
+                </div>
               </form>
-              <form method="POST" action="{{ url_for('clear_application', app_id=app._id) }}" 
-                    onsubmit="return confirm('Are you sure you want to clear this application?');">
-                <button type="submit" class="btn btn-danger btn-sm w-100 mt-2">
-                  <i class="fas fa-trash"></i> Clear
-                </button>
-              </form>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
   {% else %}
   <div class="text-center mt-5">
-    <img src="https://cdn-icons-png.flaticon.com/512/7486/7486759.png" width="120" alt="No Applications">
-    <p class="text-muted mt-3">No student applications found yet.</p>
+    <img src="https://cdn-icons-png.flaticon.com/512/4076/4076500.png" width="100">
+    <p class="text-muted mt-3">No applications yet.</p>
   </div>
   {% endif %}
 </div>
 
-<style>
-  .card {
-    background: linear-gradient(135deg, #f0f4f8, #e8f0fe);
-  }
-  table thead th {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.03em;
-  }
-  table tbody tr:hover {
-    background-color: #f9f9f9;
-    transition: 0.3s;
-  }
-  textarea.form-control {
-    resize: none;
-  }
-</style>
+<script>
+document.getElementById("searchInput")?.addEventListener("keyup", e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll("#studentsTable tr").forEach(r => {
+    r.style.display = r.innerText.toLowerCase().includes(q) ? "" : "none";
+  });
+});
+</script>
 {% endblock %}
